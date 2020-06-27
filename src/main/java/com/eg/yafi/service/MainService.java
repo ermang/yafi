@@ -3,10 +3,13 @@ package com.eg.yafi.service;
 import com.eg.yafi.dto.CreateThread;
 import com.eg.yafi.dto.CreateTopic;
 import com.eg.yafi.dto.CreateUser;
+import com.eg.yafi.dto.ReadTopic;
 import com.eg.yafi.entity.AppUser;
+import com.eg.yafi.entity.AppUserThreadLikeRel;
 import com.eg.yafi.entity.Thread;
 import com.eg.yafi.entity.Topic;
 import com.eg.yafi.repo.AppUserRepo;
+import com.eg.yafi.repo.AppUserThreadLikeRelRepo;
 import com.eg.yafi.repo.ThreadRepo;
 import com.eg.yafi.repo.TopicRepo;
 import com.eg.yafi.util.Dto2Entity;
@@ -20,11 +23,14 @@ public class MainService {
     private final AppUserRepo appUserRepo;
     private final ThreadRepo threadRepo;
     private final Dto2Entity dto2Entity;
+    private AppUserThreadLikeRelRepo appUserThreadLikeRelRepo;
 
-    public MainService(TopicRepo topicRepo, AppUserRepo appUserRepo, ThreadRepo threadRepo, Dto2Entity dto2Entity) {
+    public MainService(TopicRepo topicRepo, AppUserRepo appUserRepo, ThreadRepo threadRepo,
+                       AppUserThreadLikeRelRepo appUserThreadLikeRelRepo, Dto2Entity dto2Entity) {
         this.topicRepo = topicRepo;
         this.appUserRepo = appUserRepo;
         this.threadRepo = threadRepo;
+        this.appUserThreadLikeRelRepo = appUserThreadLikeRelRepo;
         this.dto2Entity = dto2Entity;
     }
 
@@ -45,6 +51,29 @@ public class MainService {
 
         threadRepo.save(t);
     }
+
+    public void likeThread(long threadId) {
+        //Thread t = threadRepo.findById(threadId).get();
+        Thread t = threadRepo.getOne(threadId);
+        t.setLikeCount(t.getLikeCount() + 1);
+
+        //t.setLikeCount(t.getLikeCount() + 1);
+
+        threadRepo.save(t);
+
+        AppUserThreadLikeRel likeRel = new AppUserThreadLikeRel();
+        likeRel.setThread(t);
+        likeRel.setAppUser(t.getAppUser());
+
+        appUserThreadLikeRelRepo.save(likeRel);
+    }
+
+    public ReadTopic readTopic(long topicId) {
+        ReadTopic rt = topicRepo.findTopicByIdRO(topicId);
+
+        return rt;
+    }
+
 
     //    private final AirportRepo airportRepo;
 //    private final CityRepo cityRepo;

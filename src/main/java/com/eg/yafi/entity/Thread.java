@@ -19,6 +19,9 @@ public class Thread extends BaseEntity{
     @ManyToOne
     private Topic topic;
 
+    @Column(nullable = false)
+    private Long likeCount = 0L;
+
     public String getContent() {
         return content;
     }
@@ -41,5 +44,13 @@ public class Thread extends BaseEntity{
 
     public void setTopic(Topic topic) {
         this.topic = topic;
+    }
+
+    public Long getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(Long likeCount) {
+        this.likeCount = likeCount;
     }
 }
