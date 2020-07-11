@@ -12,4 +12,6 @@ public class ReadTopic {
         this.name = name;
         this.username = username;
     }
+
+
 }

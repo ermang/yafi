@@ -23,7 +23,7 @@ public class MainService {
     private final AppUserRepo appUserRepo;
     private final ThreadRepo threadRepo;
     private final Dto2Entity dto2Entity;
-    private AppUserThreadLikeRelRepo appUserThreadLikeRelRepo;
+    private final AppUserThreadLikeRelRepo appUserThreadLikeRelRepo;
 
     public MainService(TopicRepo topicRepo, AppUserRepo appUserRepo, ThreadRepo threadRepo,
                        AppUserThreadLikeRelRepo appUserThreadLikeRelRepo, Dto2Entity dto2Entity) {
@@ -53,7 +53,6 @@ public class MainService {
     }
 
     public void likeThread(long threadId) {
-        //Thread t = threadRepo.findById(threadId).get();
         Thread t = threadRepo.getOne(threadId);
         t.setLikeCount(t.getLikeCount() + 1);
 

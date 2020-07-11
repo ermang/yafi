@@ -2,8 +2,6 @@ package com.eg.yafi.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Entity
 public class AppUser extends BaseEntity{
@@ -14,6 +12,7 @@ public class AppUser extends BaseEntity{
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private String role;
 
     @Column(nullable = false)

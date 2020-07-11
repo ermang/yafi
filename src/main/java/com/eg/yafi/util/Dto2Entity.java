@@ -14,16 +14,19 @@ import org.springframework.stereotype.Service;
 public class Dto2Entity {
     private final AppUserRepo appUserRepo;
     private final TopicRepo topicRepo;
+    private final ActiveUserResolver activeUserResolver;
 
-    public Dto2Entity(AppUserRepo appUserRepo, TopicRepo topicRepo) {
+    public Dto2Entity(AppUserRepo appUserRepo, TopicRepo topicRepo, ActiveUserResolver activeUserResolver) {
         this.appUserRepo = appUserRepo;
         this.topicRepo = topicRepo;
+        this.activeUserResolver = activeUserResolver;
     }
 
     public Topic createTopic2Topic(CreateTopic createTopic) {
         Topic t = new Topic();
         t.setName(createTopic.name);
-        t.setAppUser(appUserRepo.getOne(createTopic.userId));
+        Long userId = activeUserResolver.getActiveUser().getUserId();
+        t.setAppUser(appUserRepo.getOne(userId));
 
         return t;
     }
@@ -32,6 +35,7 @@ public class Dto2Entity {
         AppUser u = new AppUser();
         u.setUsername(createUser.username);
         u.setPassword(createUser.password);
+        u.setRole(Constant.ROLE_USER);
         u.setEnabled(true);
 
         return u;
@@ -41,7 +45,8 @@ public class Dto2Entity {
         Thread t  = new Thread();
         t.setContent(createThread.content);
         t.setTopic(topicRepo.getOne(createThread.topicId));
-        t.setAppUser(appUserRepo.getOne(createThread.userId));
+        Long userId = activeUserResolver.getActiveUser().getUserId();
+        t.setAppUser(appUserRepo.getOne(userId));
 
         return t;
     }
