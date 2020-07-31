@@ -1,6 +1,7 @@
 package com.eg.yafi.service;
 
 import com.eg.yafi.dto.ReadThread;
+import com.eg.yafi.dto.ReadThreadExtended;
 import com.eg.yafi.repo.ThreadRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,8 +29,20 @@ public class ThreadQueryService {
         return pagedReadThread;
     }
 
-    public Page<ReadThread>  readThreadsByTopic(long topicId, Pageable pageable) {
-        Page<ReadThread> pagedReadThread = threadRepo.findThreadsByTopicRO(topicId, pageable);
+    public Page<ReadThreadExtended>  readThreadsByTopic(long topicId, Pageable pageable) {
+        Page<ReadThreadExtended> pagedReadThread = threadRepo.findThreadsByTopicRO(topicId, pageable);
+
+        return pagedReadThread;
+    }
+
+    public Page<ReadThread>  readMostLikedThreads(Pageable pageable) {
+        Page<ReadThread> pagedReadThread = threadRepo.findMostLikedThreadsRO(pageable);
+
+        return pagedReadThread;
+    }
+
+    public Page<ReadThreadExtended> readRecentThreads(Pageable pageable) {
+        Page<ReadThreadExtended> pagedReadThread = threadRepo.findRecentThreadsRO(pageable);
 
         return pagedReadThread;
     }

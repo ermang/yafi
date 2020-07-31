@@ -2,6 +2,7 @@ package com.eg.yafi.controller;
 
 import com.eg.yafi.dto.CreateThread;
 import com.eg.yafi.dto.ReadThread;
+import com.eg.yafi.dto.ReadThreadExtended;
 import com.eg.yafi.service.MainService;
 import com.eg.yafi.service.ThreadQueryService;
 import org.springframework.data.domain.Page;
@@ -37,8 +38,8 @@ public class ThreadController {
     }
 
     @GetMapping("/topic/{topicId}")
-    public Page<ReadThread> readThreadsByTopic(@PathVariable long topicId, Pageable pageable){
-        Page<ReadThread> readThread = threadQueryService.readThreadsByTopic(topicId, pageable);
+    public Page<ReadThreadExtended> readThreadsByTopicId(@PathVariable long topicId, Pageable pageable){
+        Page<ReadThreadExtended> readThread = threadQueryService.readThreadsByTopic(topicId, pageable);
 
         return readThread;
     }
@@ -49,4 +50,22 @@ public class ThreadController {
 
         return readThread;
     }
+
+    @GetMapping("/top-liked")
+    public Page<ReadThread> readMostLikedThreads(Pageable pageable){
+
+        Page<ReadThread> readThread = threadQueryService.readMostLikedThreads(pageable);
+
+        return readThread;
+    }
+
+    @GetMapping("/recent")
+    public Page<ReadThreadExtended> readRecentThreads(Pageable pageable){
+
+        Page<ReadThreadExtended> readThread = threadQueryService.readRecentThreads(pageable);
+
+        return readThread;
+    }
+
+
 }

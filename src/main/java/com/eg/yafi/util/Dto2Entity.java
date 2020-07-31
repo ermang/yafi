@@ -10,6 +10,8 @@ import com.eg.yafi.repo.AppUserRepo;
 import com.eg.yafi.repo.TopicRepo;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class Dto2Entity {
     private final AppUserRepo appUserRepo;
@@ -45,6 +47,7 @@ public class Dto2Entity {
         Thread t  = new Thread();
         t.setContent(createThread.content);
         t.setTopic(topicRepo.getOne(createThread.topicId));
+        t.setCreatedOn(LocalDateTime.now());
         Long userId = activeUserResolver.getActiveUser().getUserId();
         t.setAppUser(appUserRepo.getOne(userId));
 

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+
 @RestController
 public class MainController {
     private final MainService mainService;
@@ -27,5 +29,10 @@ public class MainController {
     public void createUser(@RequestBody CreateUser createUser){
         mainService.createUser(createUser);
     }
+
+//    @GetMapping("/popi")
+//    public void readPopiTopic(LocalDate localDate){
+//        mainS
+//    }
 
 }

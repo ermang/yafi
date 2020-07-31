@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -22,8 +21,6 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private WebApplicationContext applicationContext;
     @Autowired
     private DataSource dataSource;
     @Autowired
@@ -36,11 +33,6 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
 //      super();
 //      this.dataSource = dataSource;
 //
-//    }
-
-//    @PostConstruct
-//    public void completeSetup() {
-//        userDetailsService = applicationContext.getBean(CustomUserDetailsService.class);
 //    }
 
     @Override
