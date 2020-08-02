@@ -30,6 +30,11 @@ public class MainController {
         mainService.createUser(createUser);
     }
 
+    @PostMapping("/login")
+    public void login(){
+        return;
+    }
+
 //    @GetMapping("/popi")
 //    public void readPopiTopic(LocalDate localDate){
 //        mainS
