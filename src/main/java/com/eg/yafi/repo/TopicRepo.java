@@ -10,8 +10,9 @@ import java.util.List;
 
 public interface TopicRepo extends JpaRepository<Topic, Long> {
 
-    @Query(value = "SELECT new com.eg.yafi.dto.ReadTopic(t.id AS id, t.name AS name, t.appUser.username AS username)" +
-                   "    FROM Topic t WHERE t.id = :topicId")
+    @Query(value = "SELECT new com.eg.yafi.dto.ReadTopic(t.id AS id, t.name AS name, a.username AS username)" +
+                   "    FROM Topic t" +
+                   "    INNER JOIN AppUser a ON t.id = :topicId AND t.appUser.id = a.id")
     ReadTopic findTopicByIdRO(@Param("topicId")long topicId);
 
 

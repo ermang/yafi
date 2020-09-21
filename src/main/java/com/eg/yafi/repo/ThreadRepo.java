@@ -11,31 +11,36 @@ import org.springframework.data.repository.query.Param;
 
 public interface ThreadRepo extends JpaRepository<Thread, Long> {
 
-    @Query(value = "SELECT new com.eg.yafi.dto.ReadThread(t.id AS id, t.topic.id AS topicId, t.topic.name AS topicName, t.content AS content, t.appUser.username AS username, t.likeCount AS likeCount)" +
+    @Query(value = "SELECT new com.eg.yafi.dto.ReadThread(t.id AS id, topic.id AS topicId, topic.name AS topicName, t.content AS content," +
+                   "    appUser.username AS username, t.likeCount AS likeCount)" +
                    "    FROM Thread t" +
-                   "    WHERE t.id = :threadId")
+                   "    INNER JOIN Topic topic ON t.id = :threadId AND t.topic.id = topic.id" +
+                   "    INNER JOIN AppUser appUser ON t.appUser.id = appUser.id")
     ReadThread findByIdRO(@Param("threadId") long threadId);
 
-    @Query(value = "SELECT new com.eg.yafi.dto.ReadThread(t.id AS id, t.topic.id AS topicId, t.topic.name AS topicName, t.content AS content, t.appUser.username AS username, t.likeCount AS likeCount)" +
+    @Query(value = "SELECT new com.eg.yafi.dto.ReadThread(t.id AS id, t.topic.id AS topicId, t.topic.name AS topicName, t.content AS content," +
+                   "    t.appUser.username AS username, t.likeCount AS likeCount)" +
                    "    FROM Thread t WHERE t.appUser.id = :userId")
     Page<ReadThread> findThreadsByUserRO(@Param("userId") long userId, Pageable pageable);
 
     @Query(value = "SELECT new com.eg.yafi.dto.ReadThreadExtended(t.id AS id, topic.id AS topicId, topic.name AS topicName," +
-               "    t.content AS content, appUser.username AS username, t.likeCount AS likeCount, t.createdOn AS createdOn)" +
-               "    FROM Thread t INNER JOIN Topic topic ON t.topic.id = :topicId AND t.topic.id = topic.id" +
-               "    INNER JOIN AppUser appUser ON t.appUser.id = appUser.id")
+                   "    t.content AS content, appUser.username AS username, t.likeCount AS likeCount, t.createdOn AS createdOn)" +
+                   "    FROM Thread t INNER JOIN Topic topic ON t.topic.id = :topicId AND t.topic.id = topic.id" +
+                   "    INNER JOIN AppUser appUser ON t.appUser.id = appUser.id")
     Page<ReadThreadExtended> findThreadsByTopicRO(@Param("topicId")long topicId, Pageable pageable);
 
-    @Query(value = "SELECT new com.eg.yafi.dto.ReadThread(t.id AS id, t.topic.id AS topicId, t.topic.name AS topicName, t.content AS content," +
-                   "    t.appUser.username AS username, t.likeCount AS likeCount)" +
+    @Query(value = "SELECT new com.eg.yafi.dto.ReadThread(t.id AS id, t.topic.id AS topicId, topic.name AS topicName, t.content AS content," +
+                   "    appUser.username AS username, t.likeCount AS likeCount)" +
                    "    FROM Thread t" +
+                   "    INNER JOIN Topic topic ON t.topic.id = topic.id" +
+                   "    INNER JOIN AppUser appUser ON t.appUser.id = appUser.id" +
                    "    ORDER BY t.likeCount DESC")
     Page<ReadThread> findMostLikedThreadsRO(Pageable pageable);
 
     @Query(value = "SELECT new com.eg.yafi.dto.ReadThreadExtended(t.id AS id, topic.id AS topicId, topic.name AS topicName," +
-            "    t.content AS content, appUser.username AS username, t.likeCount AS likeCount, t.createdOn AS createdOn)" +
-            "    FROM Thread t INNER JOIN Topic topic ON t.topic.id = topic.id" +
-            "    INNER JOIN AppUser appUser ON t.appUser.id = appUser.id" +
-            "    ORDER BY t.createdOn DESC")
+                   "    t.content AS content, appUser.username AS username, t.likeCount AS likeCount, t.createdOn AS createdOn)" +
+                   "    FROM Thread t INNER JOIN Topic topic ON t.topic.id = topic.id" +
+                   "    INNER JOIN AppUser appUser ON t.appUser.id = appUser.id" +
+                   "    ORDER BY t.createdOn DESC")
     Page<ReadThreadExtended> findRecentThreadsRO(Pageable pageable);
 }

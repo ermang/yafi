@@ -25,7 +25,7 @@ public class ThreadController {
         mainService.createThread(createThread);
     }
 
-    @PostMapping("{threadId}/like")
+    @PostMapping("/like/{threadId}")
     public void likeThread(@PathVariable long threadId){
         mainService.likeThread(threadId);
     }
