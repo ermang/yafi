@@ -1,4 +1,4 @@
-package com.eg.yafi.dto;
+package com.eg.yafi.dto.out;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,7 +1,7 @@
 package com.eg.yafi.service;
 
-import com.eg.yafi.dto.ReadThread;
-import com.eg.yafi.dto.ReadThreadExtended;
+import com.eg.yafi.dto.out.ReadThread;
+import com.eg.yafi.dto.out.ReadThreadExtended;
 import com.eg.yafi.repo.ThreadRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

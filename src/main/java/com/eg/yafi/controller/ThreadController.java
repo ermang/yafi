@@ -1,8 +1,8 @@
 package com.eg.yafi.controller;
 
-import com.eg.yafi.dto.CreateThread;
-import com.eg.yafi.dto.ReadThread;
-import com.eg.yafi.dto.ReadThreadExtended;
+import com.eg.yafi.dto.in.CreateThread;
+import com.eg.yafi.dto.out.ReadThread;
+import com.eg.yafi.dto.out.ReadThreadExtended;
 import com.eg.yafi.service.MainService;
 import com.eg.yafi.service.ThreadQueryService;
 import org.springframework.data.domain.Page;

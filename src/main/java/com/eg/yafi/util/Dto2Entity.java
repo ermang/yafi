@@ -1,8 +1,8 @@
 package com.eg.yafi.util;
 
-import com.eg.yafi.dto.CreateThread;
-import com.eg.yafi.dto.CreateTopic;
-import com.eg.yafi.dto.CreateUser;
+import com.eg.yafi.dto.in.CreateThread;
+import com.eg.yafi.dto.in.CreateTopic;
+import com.eg.yafi.dto.in.CreateUser;
 import com.eg.yafi.entity.AppUser;
 import com.eg.yafi.entity.Thread;
 import com.eg.yafi.entity.Topic;

@@ -1,12 +1,9 @@
 package com.eg.yafi.controller;
 
-import com.eg.yafi.dto.CreateTopic;
-import com.eg.yafi.dto.ReadPopularTopics;
-import com.eg.yafi.dto.ReadTopic;
+import com.eg.yafi.dto.in.CreateTopic;
+import com.eg.yafi.dto.out.ReadPopularTopics;
+import com.eg.yafi.dto.out.ReadTopic;
 import com.eg.yafi.service.MainService;
-import com.eg.yafi.util.ActiveUserResolver;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

@@ -1,7 +1,7 @@
 package com.eg.yafi;
 
 import com.eg.yafi.config.CustomPrincipal;
-import com.eg.yafi.dto.ReadThread;
+import com.eg.yafi.dto.out.ReadThread;
 import com.eg.yafi.repo.AppUserRepo;
 import com.eg.yafi.repo.AppUserThreadLikeRelRepo;
 import com.eg.yafi.repo.ThreadRepo;

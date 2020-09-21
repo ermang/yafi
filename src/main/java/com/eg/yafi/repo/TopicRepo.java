@@ -1,6 +1,6 @@
 package com.eg.yafi.repo;
 
-import com.eg.yafi.dto.ReadTopic;
+import com.eg.yafi.dto.out.ReadTopic;
 import com.eg.yafi.entity.Topic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface TopicRepo extends JpaRepository<Topic, Long> {
 
-    @Query(value = "SELECT new com.eg.yafi.dto.ReadTopic(t.id AS id, t.name AS name, a.username AS username)" +
+    @Query(value = "SELECT new com.eg.yafi.dto.out.ReadTopic(t.id AS id, t.name AS name, a.username AS username)" +
                    "    FROM Topic t" +
                    "    INNER JOIN AppUser a ON t.id = :topicId AND t.appUser.id = a.id")
     ReadTopic findTopicByIdRO(@Param("topicId")long topicId);

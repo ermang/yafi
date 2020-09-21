@@ -1,4 +1,4 @@
-package com.eg.yafi.dto;
+package com.eg.yafi.dto.out;
 
 public class ReadThread {
     public long id;

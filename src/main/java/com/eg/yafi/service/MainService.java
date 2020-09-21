@@ -1,6 +1,10 @@
 package com.eg.yafi.service;
 
-import com.eg.yafi.dto.*;
+import com.eg.yafi.dto.in.CreateThread;
+import com.eg.yafi.dto.in.CreateTopic;
+import com.eg.yafi.dto.in.CreateUser;
+import com.eg.yafi.dto.out.ReadPopularTopics;
+import com.eg.yafi.dto.out.ReadTopic;
 import com.eg.yafi.entity.AppUser;
 import com.eg.yafi.entity.AppUserThreadLikeRel;
 import com.eg.yafi.entity.Thread;
@@ -10,8 +14,6 @@ import com.eg.yafi.repo.AppUserThreadLikeRelRepo;
 import com.eg.yafi.repo.ThreadRepo;
 import com.eg.yafi.repo.TopicRepo;
 import com.eg.yafi.util.Dto2Entity;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

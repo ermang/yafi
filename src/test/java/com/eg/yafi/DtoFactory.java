@@ -1,9 +1,9 @@
 package com.eg.yafi;
 
 import com.eg.yafi.config.CustomPrincipal;
-import com.eg.yafi.dto.CreateThread;
-import com.eg.yafi.dto.CreateTopic;
-import com.eg.yafi.dto.CreateUser;
+import com.eg.yafi.dto.in.CreateThread;
+import com.eg.yafi.dto.in.CreateTopic;
+import com.eg.yafi.dto.in.CreateUser;
 import com.eg.yafi.util.Constant;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

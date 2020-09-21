@@ -1,4 +1,4 @@
-package com.eg.yafi.dto;
+package com.eg.yafi.dto.in;
 
 public class CreateTopic {
     public String name;
