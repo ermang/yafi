@@ -18,9 +18,11 @@ public interface ThreadRepo extends JpaRepository<Thread, Long> {
                    "    INNER JOIN AppUser appUser ON t.appUser.id = appUser.id")
     ReadThread findByIdRO(@Param("threadId") long threadId);
 
-    @Query(value = "SELECT new com.eg.yafi.dto.out.ReadThread(t.id AS id, t.topic.id AS topicId, t.topic.name AS topicName, t.content AS content," +
-                   "    t.appUser.username AS username, t.likeCount AS likeCount)" +
-                   "    FROM Thread t WHERE t.appUser.id = :userId")
+    @Query(value = "SELECT new com.eg.yafi.dto.out.ReadThread(t.id AS id, topic.id AS topicId, topic.name AS topicName, t.content AS content," +
+                   "    appUser.username AS username, t.likeCount AS likeCount)" +
+                   "    FROM Thread t" +
+                   "    INNER JOIN AppUser appUser ON t.appUser.id = :userId AND t.appUser.id = appUser.id" +
+                   "    INNER JOIN Topic topic ON t.topic.id = topic.id")
     Page<ReadThread> findThreadsByUserRO(@Param("userId") long userId, Pageable pageable);
 
     @Query(value = "SELECT new com.eg.yafi.dto.out.ReadThreadExtended(t.id AS id, topic.id AS topicId, topic.name AS topicName," +

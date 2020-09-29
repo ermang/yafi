@@ -2,6 +2,7 @@ package com.eg.yafi;
 
 import com.eg.yafi.config.CustomPrincipal;
 import com.eg.yafi.dto.out.ReadThread;
+import com.eg.yafi.dto.out.ReadThreadExtended;
 import com.eg.yafi.repo.AppUserRepo;
 import com.eg.yafi.repo.AppUserThreadLikeRelRepo;
 import com.eg.yafi.repo.ThreadRepo;
@@ -18,14 +19,21 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @RunWith(SpringRunner.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 //@WithMockUser   //DefaultUser with username "user", password "password", and a single GrantedAuthority named "ROLE_USER"
 @DataJpaTest(includeFilters = @ComponentScan.Filter(classes = {Service.class}))
+@Sql(scripts = "classpath:thread_query_service_test.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class ThreadQueryServiceTest {
 
     @Autowired
@@ -43,43 +51,58 @@ public class ThreadQueryServiceTest {
     private ActiveUserResolver activeUserResolver;
 
     private DtoFactory dtoFactory;
+    private EntityFactory entityFactory;
 
     @Before
     public void setup() {
         this.activeUserResolver = Mockito.mock(ActiveUserResolver.class);
         this.dtoFactory = new DtoFactory();
+        this.entityFactory = new EntityFactory();
 
         this.dto2Entity = new Dto2Entity(appUserRepo, topicRepo, activeUserResolver);
         this.dto2Entity = new Dto2Entity(appUserRepo, topicRepo, activeUserResolver);
-        this.mainService = new MainService(topicRepo, appUserRepo, threadRepo, appUserThreadLikeRelRepo, dto2Entity);
+        this.mainService = new MainService(topicRepo, appUserRepo, dto2Entity);
         this.threadQueryService = new ThreadQueryService(threadRepo);
     }
 
     @Test
-    public void test_create_user(){
-        mainService.createUser(dtoFactory.createUser_V1());
+    public void test_read_thread(){
+        ReadThread expected = new ReadThread(1, 1, "topic1", "topic_1_content1", "user1", 0);
+
         CustomPrincipal mockCustomPrincipal = Mockito.mock(CustomPrincipal.class);
         Mockito.when(mockCustomPrincipal.getUserId()).thenReturn(1L);
         Mockito.when(activeUserResolver.getActiveUser()).thenReturn(mockCustomPrincipal);
 
-        mainService.createTopic(dtoFactory.createTopic_V1());
-        mainService.createThread(dtoFactory.createThread_V1());
+        ReadThread actual = threadQueryService.readThread(1L);
 
-        ReadThread actual = threadQueryService.readThread(1L); //createUser(dtoFactory.createUser_V1());
-
-        Assert.assertNotNull(actual);
+        Assert.assertEquals(expected, actual);
     }
 
-//    @Test
-//    public void test_write_read_topic(){
-//        threadQueryService.createUser(dtoFactory.createUser_V1());
-//        CustomPrincipal mockCustomPrincipal = Mockito.mock(CustomPrincipal.class);
-//        Mockito.when(mockCustomPrincipal.getUserId()).thenReturn(1L);
-//        Mockito.when(activeUserResolver.getActiveUser()).thenReturn(mockCustomPrincipal);
-//
-//        threadQueryService.createTopic(dtoFactory.createTopic_V1());
-//        ReadTopic result = threadQueryService.readTopic(1L);
-//
-//        Assert.assertNotNull(result);
-//    }
+    @Test
+    public void test_read_threads_by_user(){
+        Page<ReadThread> expected = new PageImpl<>(Arrays.asList(new ReadThread(1, 1, "topic1", "topic_1_content1", "user1", 0),
+                new ReadThread(2, 1, "topic1", "topic_1_content2", "user1", 0)), TestUtil.pageable(), 2);
+
+        CustomPrincipal mockCustomPrincipal = Mockito.mock(CustomPrincipal.class);
+        Mockito.when(mockCustomPrincipal.getUserId()).thenReturn(1L);
+        Mockito.when(activeUserResolver.getActiveUser()).thenReturn(mockCustomPrincipal);
+
+        Page<ReadThread> actual = threadQueryService.readThreadsByUser(1L, TestUtil.pageable());
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void test_read_threads_by_topic(){
+        Page<ReadThreadExtended> expected = new PageImpl<>(Arrays.asList(new ReadThreadExtended(1, 1, "topic1", "topic_1_content1", "user1", 0, LocalDateTime.of(2020,01,03, 0, 0)),
+                new ReadThreadExtended(2, 1, "topic1", "topic_1_content2", "user1", 0,  LocalDateTime.of(2020,01,03, 0, 0))), TestUtil.pageable(), 2);
+
+        CustomPrincipal mockCustomPrincipal = Mockito.mock(CustomPrincipal.class);
+        Mockito.when(mockCustomPrincipal.getUserId()).thenReturn(1L);
+        Mockito.when(activeUserResolver.getActiveUser()).thenReturn(mockCustomPrincipal);
+
+        Page<ReadThreadExtended> actual = threadQueryService.readThreadsByTopic(1L, TestUtil.pageable());
+
+        Assert.assertEquals(expected, actual);
+    }
 }

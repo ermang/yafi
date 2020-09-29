@@ -4,6 +4,7 @@ import com.eg.yafi.dto.in.CreateThread;
 import com.eg.yafi.dto.out.ReadThread;
 import com.eg.yafi.dto.out.ReadThreadExtended;
 import com.eg.yafi.service.MainService;
+import com.eg.yafi.service.ThreadCommandService;
 import com.eg.yafi.service.ThreadQueryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,20 +15,22 @@ import org.springframework.web.bind.annotation.*;
 public class ThreadController {
     private final MainService mainService;
     private final ThreadQueryService threadQueryService;
+    private final ThreadCommandService threadCommandService;
 
-    public ThreadController(MainService mainService, ThreadQueryService threadQueryService) {
+    public ThreadController(MainService mainService, ThreadQueryService threadQueryService, ThreadCommandService threadCommandService) {
         this.mainService = mainService;
         this.threadQueryService = threadQueryService;
+        this.threadCommandService = threadCommandService;
     }
 
     @PostMapping()
     public void createThread(@RequestBody CreateThread createThread){
-        mainService.createThread(createThread);
+        threadCommandService.createThread(createThread);
     }
 
     @PostMapping("/like/{threadId}")
     public void likeThread(@PathVariable long threadId){
-        mainService.likeThread(threadId);
+        threadCommandService.likeThread(threadId);
     }
 
     @GetMapping("/{threadId}")

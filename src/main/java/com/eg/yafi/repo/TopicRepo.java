@@ -2,6 +2,8 @@ package com.eg.yafi.repo;
 
 import com.eg.yafi.dto.out.ReadTopic;
 import com.eg.yafi.entity.Topic;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,4 +28,10 @@ public interface TopicRepo extends JpaRepository<Topic, Long> {
                    "    INNER JOIN app_user a ON t.app_user_id = a.id" +
                    "    ORDER BY temp.count_topic_id DESC", nativeQuery = true)
     List<Object[]> findPopularTopicsRO();
+
+    @Query(value = "SELECT new com.eg.yafi.dto.out.ReadTopic(t.id AS id, t.name AS name, a.username AS username)" +
+                   "    FROM Topic t" +
+                   "    INNER JOIN AppUser a ON t.name LIKE %:topicName% AND t.appUser.id = a.id" +
+                   "    ORDER BY t.name ASC" )
+    Page<ReadTopic> findTopicByNameRO(@Param("topicName")String topicName, Pageable pageable);
 }

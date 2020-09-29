@@ -4,6 +4,7 @@ import com.eg.yafi.config.CustomPrincipal;
 import com.eg.yafi.dto.in.CreateThread;
 import com.eg.yafi.dto.in.CreateTopic;
 import com.eg.yafi.dto.in.CreateUser;
+import com.eg.yafi.dto.out.ReadThread;
 import com.eg.yafi.util.Constant;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -40,5 +41,11 @@ public class DtoFactory {
         ct.content = "content1";
 
         return ct;
+    }
+
+    public ReadThread readThread_v1() {
+        ReadThread rt = new ReadThread(1, 1, "topic1", "topic_1_content1", "user", 0);
+
+        return rt;
     }
 }
