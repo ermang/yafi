@@ -1,6 +1,7 @@
 package com.eg.yafi.controller;
 
 import com.eg.yafi.dto.in.CreateThread;
+import com.eg.yafi.dto.in.UpdateThread;
 import com.eg.yafi.dto.out.ReadThread;
 import com.eg.yafi.dto.out.ReadThreadExtended;
 import com.eg.yafi.service.MainService;
@@ -8,8 +9,13 @@ import com.eg.yafi.service.ThreadCommandService;
 import com.eg.yafi.service.ThreadQueryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
+
+@Validated
 @RestController
 @RequestMapping("/thread")
 public class ThreadController {
@@ -24,7 +30,7 @@ public class ThreadController {
     }
 
     @PostMapping()
-    public void createThread(@RequestBody CreateThread createThread){
+    public void createThread(@RequestBody @Valid CreateThread createThread){
         threadCommandService.createThread(createThread);
     }
 
@@ -68,6 +74,16 @@ public class ThreadController {
         Page<ReadThreadExtended> readThread = threadQueryService.readRecentThreads(pageable);
 
         return readThread;
+    }
+
+    @PutMapping()
+    public void updateThread(@RequestBody @Valid UpdateThread updateThread){
+        threadCommandService.updateThread(updateThread);
+    }
+
+    @DeleteMapping("/{threadId}")
+    public void deleteThread(@PathVariable long threadId){
+        threadCommandService.deleteThread(threadId);
     }
 
 

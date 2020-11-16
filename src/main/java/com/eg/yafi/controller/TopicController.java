@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/topic")
 public class TopicController {
@@ -18,7 +20,7 @@ public class TopicController {
     }
 
     @PostMapping()
-    public void createTopic(@RequestBody CreateTopic createTopic){
+    public void createTopic(@RequestBody @Valid CreateTopic createTopic){
 
         mainService.createTopic(createTopic);
     }

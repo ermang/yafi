@@ -7,10 +7,8 @@ import com.eg.yafi.repo.AppUserRepo;
 import com.eg.yafi.repo.AppUserThreadLikeRelRepo;
 import com.eg.yafi.repo.ThreadRepo;
 import com.eg.yafi.repo.TopicRepo;
-import com.eg.yafi.service.MainService;
 import com.eg.yafi.service.ThreadQueryService;
 import com.eg.yafi.util.ActiveUserResolver;
-import com.eg.yafi.util.Dto2Entity;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,8 +43,6 @@ public class ThreadQueryServiceTest {
     @Autowired
     private AppUserThreadLikeRelRepo appUserThreadLikeRelRepo;
 
-    private Dto2Entity dto2Entity;
-    private MainService mainService;
     private ThreadQueryService threadQueryService;
     private ActiveUserResolver activeUserResolver;
 
@@ -59,9 +55,6 @@ public class ThreadQueryServiceTest {
         this.dtoFactory = new DtoFactory();
         this.entityFactory = new EntityFactory();
 
-        this.dto2Entity = new Dto2Entity(appUserRepo, topicRepo, activeUserResolver);
-        this.dto2Entity = new Dto2Entity(appUserRepo, topicRepo, activeUserResolver);
-        this.mainService = new MainService(topicRepo, appUserRepo, dto2Entity);
         this.threadQueryService = new ThreadQueryService(threadRepo);
     }
 

@@ -3,12 +3,10 @@ package com.eg.yafi;
 import com.eg.yafi.config.CustomPrincipal;
 import com.eg.yafi.dto.in.CreateThread;
 import com.eg.yafi.dto.out.ReadThread;
-import com.eg.yafi.dto.out.ReadThreadExtended;
 import com.eg.yafi.repo.AppUserRepo;
 import com.eg.yafi.repo.AppUserThreadLikeRelRepo;
 import com.eg.yafi.repo.ThreadRepo;
 import com.eg.yafi.repo.TopicRepo;
-import com.eg.yafi.service.MainService;
 import com.eg.yafi.service.ThreadCommandService;
 import com.eg.yafi.service.ThreadQueryService;
 import com.eg.yafi.util.ActiveUserResolver;
@@ -21,15 +19,10 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
 
 @RunWith(SpringRunner.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -57,7 +50,7 @@ public class ThreadCommandServiceTest {
         this.activeUserResolver = Mockito.mock(ActiveUserResolver.class);
 
         this.dto2Entity = new Dto2Entity(appUserRepo, topicRepo, activeUserResolver);
-        this.threadCommandService = new ThreadCommandService(dto2Entity, threadRepo, appUserThreadLikeRelRepo);
+        this.threadCommandService = new ThreadCommandService(dto2Entity, threadRepo, appUserThreadLikeRelRepo, activeUserResolver);
         this.threadQueryService = new ThreadQueryService(threadRepo);
     }
 

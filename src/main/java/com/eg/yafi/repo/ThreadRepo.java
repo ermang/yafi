@@ -6,6 +6,7 @@ import com.eg.yafi.entity.Thread;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -45,4 +46,6 @@ public interface ThreadRepo extends JpaRepository<Thread, Long> {
                    "    INNER JOIN AppUser appUser ON t.appUser.id = appUser.id" +
                    "    ORDER BY t.createdOn DESC")
     Page<ReadThreadExtended> findRecentThreadsRO(Pageable pageable);
+
+
 }
