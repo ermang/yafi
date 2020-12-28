@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.NoSuchElementException;
 
 @RestControllerAdvice
-public class RestResponseEntityExceptionHandler {//extends ResponseEntityExceptionHandler {
+public class RestExceptionHandler {//extends ResponseEntityExceptionHandler {
     Logger logger = LoggerFactory.getLogger(ThreadCommandService.class);
 
 //    @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class })

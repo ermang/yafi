@@ -2,6 +2,7 @@ package com.eg.yafi;
 
 import com.eg.yafi.config.CustomPrincipal;
 import com.eg.yafi.dto.in.CreateThread;
+import com.eg.yafi.dto.in.UpdateThread;
 import com.eg.yafi.dto.out.ReadThread;
 import com.eg.yafi.repo.AppUserRepo;
 import com.eg.yafi.repo.AppUserThreadLikeRelRepo;
@@ -83,6 +84,38 @@ public class ThreadCommandServiceTest {
         ReadThread actual = threadQueryService.readThread(2L);
 
         Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void test_update_thread(){
+        ReadThread expected = new ReadThread(1, 1, "topic1", "content_updated", "user1", 0);
+        UpdateThread ut = new UpdateThread();
+        ut.id = 1L;
+        ut.content = "content_updated";
+
+        CustomPrincipal mockCustomPrincipal = Mockito.mock(CustomPrincipal.class);
+        Mockito.when(mockCustomPrincipal.getUserId()).thenReturn(1L);
+        Mockito.when(activeUserResolver.getActiveUser()).thenReturn(mockCustomPrincipal);
+
+        threadCommandService.updateThread(ut);
+        ReadThread actual = threadQueryService.readThread(1L);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void test_delete_thread(){
+        ReadThread expected = new ReadThread(1, 1, "topic1", "content_updated", "user1", 0);
+
+
+        CustomPrincipal mockCustomPrincipal = Mockito.mock(CustomPrincipal.class);
+        Mockito.when(mockCustomPrincipal.getUserId()).thenReturn(1L);
+        Mockito.when(activeUserResolver.getActiveUser()).thenReturn(mockCustomPrincipal);
+
+        threadCommandService.deleteThread(1L);
+        ReadThread actual = threadQueryService.readThread(1L);
+
+        Assert.assertNull(actual);
     }
 
 
