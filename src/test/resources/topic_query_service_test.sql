@@ -9,7 +9,5 @@ INSERT INTO topic (name, app_user_id) VALUES ('topic3', 1);
 INSERT INTO thread (content, app_user_id, topic_id, like_count, created_on) VALUES ('topic_1_content1', 1, 1, 0, '2020-01-03');
 INSERT INTO thread (content, app_user_id, topic_id, like_count, created_on) VALUES ('topic_1_content2', 1, 1, 0, '2020-01-04');
 INSERT INTO thread (content, app_user_id, topic_id, like_count, created_on) VALUES ('topic_2_content1', 2, 2, 0, '2020-01-05');
-INSERT INTO thread (content, app_user_id, topic_id, like_count, created_on) VALUES ('topic_2_content2', 2, 2, 0, '2020-01-06');
-INSERT INTO thread (content, app_user_id, topic_id, like_count, created_on) VALUES ('topic_3_content1', 3, 3, 0, '2020-01-07');
-INSERT INTO thread (content, app_user_id, topic_id, like_count, created_on) VALUES ('topic_3_content2', 3, 3, 0, '2020-01-08');
+
 

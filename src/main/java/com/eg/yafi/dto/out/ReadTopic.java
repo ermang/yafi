@@ -1,5 +1,7 @@
 package com.eg.yafi.dto.out;
 
+import java.util.Objects;
+
 public class ReadTopic {
     public long id;
     public String name;
@@ -13,5 +15,18 @@ public class ReadTopic {
         this.username = username;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReadTopic readTopic = (ReadTopic) o;
+        return id == readTopic.id &&
+                name.equals(readTopic.name) &&
+                username.equals(readTopic.username);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, username);
+    }
 }

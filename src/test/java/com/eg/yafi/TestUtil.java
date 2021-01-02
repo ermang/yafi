@@ -1,6 +1,5 @@
 package com.eg.yafi;
 
-import org.junit.Test;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -9,6 +8,12 @@ public class TestUtil {
 
     public static Pageable pageable() {
         Pageable p = PageRequest.of(0, 20, Sort.unsorted());
+
+        return p;
+    }
+
+    public static Pageable pageable(int page, int size) {
+        Pageable p = PageRequest.of(page, size, Sort.unsorted());
 
         return p;
     }

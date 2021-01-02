@@ -88,7 +88,7 @@ public class ThreadQueryServiceTest {
     @Test
     public void test_read_threads_by_topic(){
         Page<ReadThreadExtended> expected = new PageImpl<>(Arrays.asList(new ReadThreadExtended(1, 1, "topic1", "topic_1_content1", "user1", 0, LocalDateTime.of(2020,01,03, 0, 0)),
-                new ReadThreadExtended(2, 1, "topic1", "topic_1_content2", "user1", 0,  LocalDateTime.of(2020,01,03, 0, 0))), TestUtil.pageable(), 2);
+                new ReadThreadExtended(2, 1, "topic1", "topic_1_content2", "user1", 0,  LocalDateTime.of(2020,01,04, 0, 0))), TestUtil.pageable(), 2);
 
         CustomPrincipal mockCustomPrincipal = Mockito.mock(CustomPrincipal.class);
         Mockito.when(mockCustomPrincipal.getUserId()).thenReturn(1L);
@@ -97,5 +97,37 @@ public class ThreadQueryServiceTest {
         Page<ReadThreadExtended> actual = threadQueryService.readThreadsByTopic(1L, TestUtil.pageable());
 
         Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void test_read_recent_threads() {
+        Page<ReadThreadExtended> expected = new PageImpl<>(Arrays.asList(
+                new ReadThreadExtended(6, 3, "topic3", "topic_3_content2", "user3", 0, LocalDateTime.of(2020,01,8, 0, 0)),
+                new ReadThreadExtended(5, 3, "topic3", "topic_3_content1", "user3", 0,  LocalDateTime.of(2020,01,07, 0, 0)),
+                new ReadThreadExtended(4, 2, "topic2", "topic_2_content2", "user2", 0,  LocalDateTime.of(2020,01,06, 0, 0)),
+                new ReadThreadExtended(3, 2, "topic2", "topic_2_content1", "user2", 0,  LocalDateTime.of(2020,01,05, 0, 0)),
+                new ReadThreadExtended(2, 1, "topic1", "topic_1_content2", "user1", 0,  LocalDateTime.of(2020,01,04, 0, 0)),
+                new ReadThreadExtended(1, 1, "topic1", "topic_1_content1", "user1", 0,  LocalDateTime.of(2020,01,03, 0, 0))
+                ),
+                TestUtil.pageable(), 6);
+
+        Page<ReadThreadExtended> actual = threadQueryService.readRecentThreads(TestUtil.pageable());
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Sql(scripts = "classpath:thread_query_service/test_read_most_liked_threads.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Test
+    public void test_read_most_liked_threads() {
+        Page<ReadThread> expected = new PageImpl<>(Arrays.asList(
+                new ReadThread(1, 1, "topic1", "topic_1_content1", "user1", 2),
+                new ReadThread(3, 2, "topic2", "topic_2_content1", "user2", 1),
+                new ReadThread(2, 1, "topic1", "topic_1_content2", "user1", 0)
+        ), TestUtil.pageable(), 3);
+        Page<ReadThread> actual = threadQueryService.readMostLikedThreads(TestUtil.pageable());
+
+
+        Assert.assertEquals(expected, actual);
+
     }
 }
