@@ -19,6 +19,11 @@ public class UserController {
         this.userCommandService = userCommandService;
     }
 
+    @PostMapping("/login")
+    public void login(){
+        return;
+    }
+
     @PostMapping()
     public void createUser(@RequestBody @Valid CreateUser createUser){
         userCommandService.createUser(createUser);
