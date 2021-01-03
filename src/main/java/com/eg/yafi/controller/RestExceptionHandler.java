@@ -1,7 +1,6 @@
 package com.eg.yafi.controller;
 
 import com.eg.yafi.dto.out.ErrorResponse;
-import com.eg.yafi.service.ThreadCommandService;
 import com.eg.yafi.util.UnAuthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +19,7 @@ import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 public class RestExceptionHandler {//extends ResponseEntityExceptionHandler {
-    Logger logger = LoggerFactory.getLogger(ThreadCommandService.class);
+    Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
 
 //    @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class })
 //    protected ResponseEntity<Object> handleConflict(

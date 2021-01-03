@@ -23,10 +23,7 @@ public class MainController {
         return "Welcome to YAFI";
     }
 
-    @PostMapping("/user")
-    public void createUser(@RequestBody CreateUser createUser){
-        mainService.createUser(createUser);
-    }
+
 
     @PostMapping("/login")
     public void login(){

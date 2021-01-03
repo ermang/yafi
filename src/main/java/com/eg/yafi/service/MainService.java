@@ -31,14 +31,6 @@ public class MainService {
         topicRepo.save(t);
     }
 
-    public void createUser(CreateUser createUser) {
-        AppUser appUser = dto2Entity.createUser2AppUser(createUser);
-
-        appUserRepo.save(appUser);
-    }
-
-
-
     public ReadTopic readTopic(long topicId) {
         ReadTopic rt = topicRepo.findTopicByIdRO(topicId);
 

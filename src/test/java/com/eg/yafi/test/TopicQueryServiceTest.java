@@ -1,11 +1,9 @@
-package com.eg.yafi;
+package com.eg.yafi.test;
 
 
 import com.eg.yafi.config.CustomPrincipal;
-import com.eg.yafi.dto.out.ReadThread;
 import com.eg.yafi.dto.out.ReadTopic;
 import com.eg.yafi.repo.TopicRepo;
-import com.eg.yafi.service.ThreadQueryService;
 import com.eg.yafi.service.TopicQueryService;
 import com.eg.yafi.util.ActiveUserResolver;
 import org.junit.Assert;
@@ -57,29 +55,9 @@ public class TopicQueryServiceTest {
                 new ReadTopic(2, "topic2", "user1")
         ), TestUtil.pageable(), 1);
 
-        CustomPrincipal mockCustomPrincipal = Mockito.mock(CustomPrincipal.class);
-        Mockito.when(mockCustomPrincipal.getUserId()).thenReturn(1L);
-        Mockito.when(activeUserResolver.getActiveUser()).thenReturn(mockCustomPrincipal);
-
-
         Page<ReadTopic> actual = topicQueryService.searchTopicByName("2", TestUtil.pageable());
 
         Assert.assertEquals(expected, actual);
     }
 
-//    @Test
-//    public void test_search_topic_by_name(){
-//        Page<ReadTopic> expected = new PageImpl<>(Arrays.asList(
-//                new ReadTopic(2, "topic2", "user1")
-//        ), TestUtil.pageable(), 1);
-//
-//        CustomPrincipal mockCustomPrincipal = Mockito.mock(CustomPrincipal.class);
-//        Mockito.when(mockCustomPrincipal.getUserId()).thenReturn(1L);
-//        Mockito.when(activeUserResolver.getActiveUser()).thenReturn(mockCustomPrincipal);
-//
-//
-//        Page<ReadTopic> actual = topicQueryService.searchTopicByName("2", TestUtil.pageable());
-//
-//        Assert.assertEquals(expected, actual);
-//    }
 }

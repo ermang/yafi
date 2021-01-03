@@ -1,4 +1,4 @@
-package com.eg.yafi;
+package com.eg.yafi.test;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

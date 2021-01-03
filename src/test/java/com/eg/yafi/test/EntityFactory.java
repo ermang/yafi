@@ -1,4 +1,4 @@
-package com.eg.yafi;
+package com.eg.yafi.test;
 
 import com.eg.yafi.entity.Topic;
 
