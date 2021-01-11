@@ -4,6 +4,7 @@ import com.eg.yafi.dto.in.CreateTopic;
 import com.eg.yafi.dto.out.ReadPopularTopics;
 import com.eg.yafi.dto.out.ReadTopic;
 import com.eg.yafi.service.MainService;
+import com.eg.yafi.service.TopicCommandService;
 import com.eg.yafi.service.TopicQueryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,22 +17,24 @@ import javax.validation.Valid;
 public class TopicController {
     private final MainService mainService;
     private final TopicQueryService topicQueryService;
+    private final TopicCommandService topicCommandService;
 
-    public TopicController(MainService mainService, TopicQueryService topicQueryService) {
+    public TopicController(MainService mainService, TopicQueryService topicQueryService, TopicCommandService topicCommandService) {
         this.mainService = mainService;
         this.topicQueryService = topicQueryService;
+        this.topicCommandService = topicCommandService;
     }
 
     @PostMapping()
     public void createTopic(@RequestBody @Valid CreateTopic createTopic){
 
-        mainService.createTopic(createTopic);
+        topicCommandService.createTopic(createTopic);
     }
 
     @GetMapping("/{topicId}")
     public ReadTopic readTopic(@PathVariable long topicId){
 
-        ReadTopic rt = mainService.readTopic(topicId);
+        ReadTopic rt = topicQueryService.readTopic(topicId);
 
         return rt;
     }

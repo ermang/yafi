@@ -39,4 +39,10 @@ public class TopicQueryService {
 
         return new ReadPopularTopics(readTopics);
     }
+
+    public ReadTopic readTopic(long topicId) {
+        ReadTopic rt = topicRepo.findTopicByIdRO(topicId);
+
+        return rt;
+    }
 }
