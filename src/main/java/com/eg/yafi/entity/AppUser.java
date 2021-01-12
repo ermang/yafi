@@ -2,16 +2,20 @@ package com.eg.yafi.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class AppUser extends BaseEntity{
 
+    @NotBlank
     @Column(nullable = false, unique = true)
     private String username;
 
+    @NotBlank
     @Column(nullable = false)
     private String password;
 
+    @NotBlank
     @Column(nullable = false)
     private String role;
 

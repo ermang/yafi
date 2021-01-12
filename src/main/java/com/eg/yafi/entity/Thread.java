@@ -3,6 +3,7 @@ package com.eg.yafi.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Thread extends BaseEntity{
 
+    @NotBlank
     @Column(nullable = false)
     private String content;
 
