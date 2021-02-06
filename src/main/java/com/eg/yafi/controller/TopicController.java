@@ -1,8 +1,8 @@
 package com.eg.yafi.controller;
 
 import com.eg.yafi.dto.in.CreateTopic;
-import com.eg.yafi.dto.out.ReadPopularTopics;
-import com.eg.yafi.dto.out.ReadTopic;
+import com.eg.yafi.projection.ReadPopularTopics;
+import com.eg.yafi.projection.ReadTopic;
 import com.eg.yafi.service.MainService;
 import com.eg.yafi.service.TopicCommandService;
 import com.eg.yafi.service.TopicQueryService;
@@ -15,12 +15,10 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/topic")
 public class TopicController {
-    private final MainService mainService;
     private final TopicQueryService topicQueryService;
     private final TopicCommandService topicCommandService;
 
-    public TopicController(MainService mainService, TopicQueryService topicQueryService, TopicCommandService topicCommandService) {
-        this.mainService = mainService;
+    public TopicController(TopicQueryService topicQueryService, TopicCommandService topicCommandService) {
         this.topicQueryService = topicQueryService;
         this.topicCommandService = topicCommandService;
     }

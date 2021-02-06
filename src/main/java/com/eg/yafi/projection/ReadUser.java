@@ -1,4 +1,4 @@
-package com.eg.yafi.dto.out;
+package com.eg.yafi.projection;
 
 public class ReadUser{
     public Long id;

@@ -3,7 +3,7 @@ package com.eg.yafi.test;
 
 import com.eg.yafi.config.CustomPrincipal;
 import com.eg.yafi.dto.in.CreateTopic;
-import com.eg.yafi.dto.out.ReadTopic;
+import com.eg.yafi.projection.ReadTopic;
 import com.eg.yafi.repo.AppUserRepo;
 import com.eg.yafi.repo.TopicRepo;
 import com.eg.yafi.service.TopicCommandService;

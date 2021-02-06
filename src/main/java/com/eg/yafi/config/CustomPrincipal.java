@@ -1,6 +1,6 @@
 package com.eg.yafi.config;
 
-import com.eg.yafi.dto.out.ReadUser;
+import com.eg.yafi.projection.ReadUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

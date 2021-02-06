@@ -1,7 +1,7 @@
 package com.eg.yafi.service;
 
-import com.eg.yafi.dto.out.ReadPopularTopics;
-import com.eg.yafi.dto.out.ReadTopic;
+import com.eg.yafi.projection.ReadPopularTopics;
+import com.eg.yafi.projection.ReadTopic;
 import com.eg.yafi.repo.TopicRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

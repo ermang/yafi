@@ -1,4 +1,4 @@
-package com.eg.yafi.dto.out;
+package com.eg.yafi.projection;
 
 import java.util.Objects;
 

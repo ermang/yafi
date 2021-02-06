@@ -1,6 +1,6 @@
 package com.eg.yafi.repo;
 
-import com.eg.yafi.dto.out.ReadTopic;
+import com.eg.yafi.projection.ReadTopic;
 import com.eg.yafi.entity.Topic;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface TopicRepo extends JpaRepository<Topic, Long> {
 
-    @Query(value = "SELECT new com.eg.yafi.dto.out.ReadTopic(t.id AS id, t.name AS name, a.username AS username)" +
+    @Query(value = "SELECT new com.eg.yafi.projection.ReadTopic(t.id AS id, t.name AS name, a.username AS username)" +
                    "    FROM Topic t" +
                    "    INNER JOIN AppUser a ON t.id = :topicId AND t.appUser.id = a.id")
     ReadTopic findTopicByIdRO(@Param("topicId")long topicId);
@@ -29,7 +29,7 @@ public interface TopicRepo extends JpaRepository<Topic, Long> {
                    "    ORDER BY temp.count_topic_id DESC", nativeQuery = true)
     List<Object[]> findPopularTopicsRO();
 
-    @Query(value = "SELECT new com.eg.yafi.dto.out.ReadTopic(t.id AS id, t.name AS name, a.username AS username)" +
+    @Query(value = "SELECT new com.eg.yafi.projection.ReadTopic(t.id AS id, t.name AS name, a.username AS username)" +
                    "    FROM Topic t" +
                    "    INNER JOIN AppUser a ON t.name LIKE %:topicName% AND t.appUser.id = a.id" +
                    "    ORDER BY t.name ASC" )

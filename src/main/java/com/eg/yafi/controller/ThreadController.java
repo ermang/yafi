@@ -2,8 +2,8 @@ package com.eg.yafi.controller;
 
 import com.eg.yafi.dto.in.CreateThread;
 import com.eg.yafi.dto.in.UpdateThread;
-import com.eg.yafi.dto.out.ReadThread;
-import com.eg.yafi.dto.out.ReadThreadExtended;
+import com.eg.yafi.projection.ReadThread;
+import com.eg.yafi.projection.ReadThreadExtended;
 import com.eg.yafi.service.MainService;
 import com.eg.yafi.service.ThreadCommandService;
 import com.eg.yafi.service.ThreadQueryService;
@@ -16,12 +16,10 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/thread")
 public class ThreadController {
-    private final MainService mainService;
     private final ThreadQueryService threadQueryService;
     private final ThreadCommandService threadCommandService;
 
-    public ThreadController(MainService mainService, ThreadQueryService threadQueryService, ThreadCommandService threadCommandService) {
-        this.mainService = mainService;
+    public ThreadController(ThreadQueryService threadQueryService, ThreadCommandService threadCommandService) {
         this.threadQueryService = threadQueryService;
         this.threadCommandService = threadCommandService;
     }

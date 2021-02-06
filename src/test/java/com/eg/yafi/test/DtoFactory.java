@@ -4,7 +4,7 @@ import com.eg.yafi.config.CustomPrincipal;
 import com.eg.yafi.dto.in.CreateThread;
 import com.eg.yafi.dto.in.CreateTopic;
 import com.eg.yafi.dto.in.CreateUser;
-import com.eg.yafi.dto.out.ReadThread;
+import com.eg.yafi.projection.ReadThread;
 import com.eg.yafi.util.Constant;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

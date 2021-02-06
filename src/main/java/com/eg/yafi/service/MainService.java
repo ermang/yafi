@@ -1,10 +1,5 @@
 package com.eg.yafi.service;
 
-import com.eg.yafi.dto.in.CreateTopic;
-import com.eg.yafi.dto.in.CreateUser;
-import com.eg.yafi.dto.out.ReadTopic;
-import com.eg.yafi.entity.AppUser;
-import com.eg.yafi.entity.Topic;
 import com.eg.yafi.repo.AppUserRepo;
 import com.eg.yafi.repo.TopicRepo;
 import com.eg.yafi.util.Dto2Entity;
