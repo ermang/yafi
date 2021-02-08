@@ -1,33 +1,33 @@
-#yafi
+# yafi
 
 yafi is a simple forum like application  
 
-##Features:
+## Features:
 * Create User  
 * Create Topic  
 * Create/Delete Thread  
 * Like Thread
 
-##1.Requirements
+## 1.Requirements
 
 jdk8  
 maven  
 mysql or mariadb - mariadb10 recommended
 
-##2.How to build&run
+## 2.How to build&run
 
-###From cmd
+### From cmd
 cd to project_dir  
 mvn package  
 cd target  
 java -jar yafi-1.0-SNAPSHOT.jar  
 
-###From IDE
+### From IDE
 
 open com.eg.yafi.Application  
 IDE should show a play icon at the class name. Click it
 
-###3.Package Structure
+### 3.Package Structure
 
 **controller:** Rest endpoint classes are stored here  
 **dto:** DTO classes are here, controller classes receive DTO return DTO, for separation of concerns  
