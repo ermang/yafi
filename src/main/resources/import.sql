@@ -1,3 +1,4 @@
+SET AUTOCOMMIT=0;
 --INSERT INTO role (name) VALUES ('ROLE_USER');
 --INSERT INTO role (name) VALUES ('ROLE_ADMIN');
 
@@ -22,3 +23,5 @@ INSERT INTO thread (content, app_user_id, topic_id, like_count, created_on) VALU
 INSERT INTO thread (content, app_user_id, topic_id, like_count, created_on) VALUES ('content4', 1, 2, 0, '2020-01-03');
 INSERT INTO thread (content, app_user_id, topic_id, like_count, created_on) VALUES ('content5', 1, 3, 0, '2020-01-03');
 INSERT INTO thread (content, app_user_id, topic_id, like_count, created_on) VALUES ('content6', 1, 3, 0, '2020-01-03');
+
+COMMIT;
