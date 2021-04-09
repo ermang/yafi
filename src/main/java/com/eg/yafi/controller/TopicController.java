@@ -3,7 +3,6 @@ package com.eg.yafi.controller;
 import com.eg.yafi.dto.in.CreateTopic;
 import com.eg.yafi.projection.ReadPopularTopics;
 import com.eg.yafi.projection.ReadTopic;
-import com.eg.yafi.service.MainService;
 import com.eg.yafi.service.TopicCommandService;
 import com.eg.yafi.service.TopicQueryService;
 import org.springframework.data.domain.Page;

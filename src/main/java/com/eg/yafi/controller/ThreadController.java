@@ -4,7 +4,6 @@ import com.eg.yafi.dto.in.CreateThread;
 import com.eg.yafi.dto.in.UpdateThread;
 import com.eg.yafi.projection.ReadThread;
 import com.eg.yafi.projection.ReadThreadExtended;
-import com.eg.yafi.service.MainService;
 import com.eg.yafi.service.ThreadCommandService;
 import com.eg.yafi.service.ThreadQueryService;
 import org.springframework.data.domain.Page;
