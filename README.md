@@ -10,7 +10,7 @@ yafi is a simple forum like application
 
 ## 1.Requirements
 
-jdk8  
+jdk11  
 maven  
 mysql or mariadb - mariadb10 recommended
 
