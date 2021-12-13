@@ -7,6 +7,7 @@ import com.eg.yafi.entity.Thread;
 import com.eg.yafi.repo.AppUserThreadLikeRelRepo;
 import com.eg.yafi.repo.ThreadRepo;
 import com.eg.yafi.util.ActiveUserResolver;
+import com.eg.yafi.util.Constant;
 import com.eg.yafi.util.Dto2Entity;
 import com.eg.yafi.util.UnAuthorizedException;
 import org.slf4j.Logger;
@@ -65,7 +66,7 @@ public class ThreadCommandService {
 
         if (!t.getAppUser().getId().equals(userId)) {
             logger.error("AppUser with id {} does not own thread with id {}", userId, t.getId());
-            throw new UnAuthorizedException("User is not authorized for this operation");
+            throw new UnAuthorizedException(Constant.USER_IS_NOT_AUTHORIZED_FOR_THIS_OPERATION);
         }
         else {
             t.setContent(updateThread.content);
@@ -84,7 +85,7 @@ public class ThreadCommandService {
 
         if (!t.getAppUser().getId().equals(userId)) {
             logger.error("AppUser with id {} does not own thread with id {}", userId, t.getId());
-            throw new UnAuthorizedException("User is not authorized for this operation");
+            throw new UnAuthorizedException(Constant.USER_IS_NOT_AUTHORIZED_FOR_THIS_OPERATION);
         }
         else {
            appUserThreadLikeRelRepo.deleteAllByThreadId(threadId);

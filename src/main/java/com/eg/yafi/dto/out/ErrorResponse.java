@@ -5,9 +5,9 @@ import org.springframework.http.HttpStatus;
 import java.time.LocalDateTime;
 
 public class ErrorResponse {
-    public LocalDateTime dateTime;
-    public String message;
-    public int status;
+    public final LocalDateTime dateTime;
+    public final String message;
+    public final int status;
 
     public ErrorResponse(String message, HttpStatus status) {
         this.message = message;

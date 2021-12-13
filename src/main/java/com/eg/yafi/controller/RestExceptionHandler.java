@@ -1,10 +1,10 @@
 package com.eg.yafi.controller;
 
 import com.eg.yafi.dto.out.ErrorResponse;
+import com.eg.yafi.util.Constant;
 import com.eg.yafi.util.UnAuthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,41 +12,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.NoSuchElementException;
 
 @RestControllerAdvice
-public class RestExceptionHandler {//extends ResponseEntityExceptionHandler {
+public class RestExceptionHandler {
     Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
 
-//    @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class })
-//    protected ResponseEntity<Object> handleConflict(
-//            RuntimeException ex, WebRequest request) {
-//        String bodyOfResponse = "This should be application specific";
-//        return handleExceptionInternal(ex, bodyOfResponse,
-//                new HttpHeaders(), HttpStatus.CONFLICT, request);
-//    }
-
-    public static final String DEFAULT_ERROR_VIEW = "error";
-
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
-    public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
-        // If the exception is annotated with @ResponseStatus rethrow it and let
-        // the framework handle it - like the OrderNotFoundException example
-        // at the start of this post.
-        // AnnotationUtils is a Spring Framework utility class.
-        if (AnnotationUtils.findAnnotation
-                (e.getClass(), ResponseStatus.class) != null)
-            throw e;
-
-        // Otherwise setup and send the user to a default error-view.
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("exception", e);
-        mav.addObject("url", req.getRequestURL());
-        mav.setViewName(DEFAULT_ERROR_VIEW);
-        return mav;
+    public ErrorResponse defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+        logger.error(e.getMessage(), e);
+        return new ErrorResponse(Constant.OOPS_SOMETHING_UNEXPECTED_HAPPENED, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -81,10 +59,10 @@ public class RestExceptionHandler {//extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = { MethodArgumentNotValidException.class })
     protected ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request) {
 
-        String validationErrors = null;
+        String validationErrors = "";
         for(ObjectError o : ex.getBindingResult().getAllErrors())
             validationErrors += o.getDefaultMessage();
 
-        return new ErrorResponse(validationErrors, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ErrorResponse(validationErrors, HttpStatus.BAD_REQUEST);
     }
 }
