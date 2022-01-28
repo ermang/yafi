@@ -36,7 +36,15 @@ IDE should show a play icon at the class name. Click it
 **repo:** JPA/Hibernate query methods are stored here, each @Entity class has its own Repo such as Company and CompanyRepo  
 **service:** service classes are stored here, operations are done inside these classes  
 
+
 **src/main/resources/application.properties:** project configuration file  
 **important features:**  
-* spring.jpa.hibernate.ddl-auto: create => drop existing tables create new tables none => don't change existing db tables
-* server.port: port for the application to run
+* spring.jpa.hibernate.ddl-auto:
+  * create => drop existing tables create new tables
+  * none => don't change existing db tables
+* server.port => port for the application to run
+
+## 4.Postman Collection
+
+**yafi.postman_collection.json** postman collection for sample requests - using v2.1 
+
