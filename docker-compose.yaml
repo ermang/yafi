@@ -1,0 +1,25 @@
+services:
+  yafi:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+       "db":
+          condition: service_healthy
+      
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/yafi?useSSL=false
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+  db:
+    image: mariadb:10.8
+    ports:
+      - "3306:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=yafi
+    healthcheck:
+      test: mariadb -u root -proot -h 127.0.0.1 --execute "SHOW DATABASES;"; exit_code=$$?; echo $$exit_code;  exit $$exit_code
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
