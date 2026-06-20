@@ -1,6 +1,6 @@
 package com.eg.yafi.dto.in;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public class CreateUser {
     @NotBlank(message = "username can not be blank")

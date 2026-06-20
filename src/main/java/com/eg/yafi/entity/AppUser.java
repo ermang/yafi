@@ -1,8 +1,8 @@
 package com.eg.yafi.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.validation.constraints.NotBlank;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class AppUser extends BaseEntity{

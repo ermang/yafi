@@ -1,8 +1,8 @@
 package com.eg.yafi.dto.in;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public class CreateThread {
     @NotBlank(message = "content can not be blank")

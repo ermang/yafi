@@ -5,9 +5,9 @@ import com.eg.yafi.repo.AppUserRepo;
 import com.eg.yafi.service.UserCommandService;
 import com.eg.yafi.util.ActiveUserResolver;
 import com.eg.yafi.util.Dto2Entity;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -17,7 +17,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
-@RunWith(SpringRunner.class)
+
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 //@WithMockUser   //DefaultUser with username "user", password "password", and a single GrantedAuthority named "ROLE_USER"
 @DataJpaTest(includeFilters = @ComponentScan.Filter(classes = {Service.class}))
@@ -32,7 +32,7 @@ public class UserCommandServiceTest {
 
     private Dto2Entity dto2Entity;
 
-    @Before
+    @BeforeEach
     public void setup() {
         this.activeUserResolver = Mockito.mock(ActiveUserResolver.class);
 

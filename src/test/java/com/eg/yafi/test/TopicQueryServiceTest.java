@@ -5,10 +5,10 @@ import com.eg.yafi.projection.ReadTopic;
 import com.eg.yafi.repo.TopicRepo;
 import com.eg.yafi.service.TopicQueryService;
 import com.eg.yafi.util.ActiveUserResolver;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -22,7 +22,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 
-@RunWith(SpringRunner.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 //@WithMockUser   //DefaultUser with username "user", password "password", and a single GrantedAuthority named "ROLE_USER"
 @DataJpaTest(includeFilters = @ComponentScan.Filter(classes = {Service.class}))
@@ -39,7 +38,7 @@ public class TopicQueryServiceTest {
     private DtoFactory dtoFactory;
     private EntityFactory entityFactory;
 
-    @Before
+    @BeforeEach
     public void setup() {
         this.activeUserResolver = Mockito.mock(ActiveUserResolver.class);
         this.dtoFactory = new DtoFactory();
@@ -56,7 +55,7 @@ public class TopicQueryServiceTest {
 
         Page<ReadTopic> actual = topicQueryService.searchTopicByName("2", TestUtil.pageable());
 
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
 }

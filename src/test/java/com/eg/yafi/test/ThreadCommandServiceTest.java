@@ -12,10 +12,10 @@ import com.eg.yafi.service.ThreadCommandService;
 import com.eg.yafi.service.ThreadQueryService;
 import com.eg.yafi.util.ActiveUserResolver;
 import com.eg.yafi.util.Dto2Entity;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -25,7 +25,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 //@WithMockUser   //DefaultUser with username "user", password "password", and a single GrantedAuthority named "ROLE_USER"
 @DataJpaTest(includeFilters = @ComponentScan.Filter(classes = {Service.class}))
@@ -46,7 +45,7 @@ public class ThreadCommandServiceTest {
     private ThreadQueryService threadQueryService;
     private ActiveUserResolver activeUserResolver;
 
-    @Before
+    @BeforeEach
     public void setup() {
         this.activeUserResolver = Mockito.mock(ActiveUserResolver.class);
 
@@ -69,7 +68,7 @@ public class ThreadCommandServiceTest {
         threadCommandService.createThread(createThread);
         ReadThread actual = threadQueryService.readThread(3L);
 
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -83,7 +82,7 @@ public class ThreadCommandServiceTest {
         threadCommandService.likeThread(2);
         ReadThread actual = threadQueryService.readThread(2L);
 
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -100,7 +99,7 @@ public class ThreadCommandServiceTest {
         threadCommandService.updateThread(ut);
         ReadThread actual = threadQueryService.readThread(1L);
 
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -115,7 +114,7 @@ public class ThreadCommandServiceTest {
         threadCommandService.deleteThread(1L);
         ReadThread actual = threadQueryService.readThread(1L);
 
-        Assert.assertNull(actual);
+        Assertions.assertNull(actual);
     }
 
 

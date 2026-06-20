@@ -9,10 +9,10 @@ import com.eg.yafi.repo.ThreadRepo;
 import com.eg.yafi.repo.TopicRepo;
 import com.eg.yafi.service.ThreadQueryService;
 import com.eg.yafi.util.ActiveUserResolver;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -27,7 +27,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-@RunWith(SpringRunner.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 //@WithMockUser   //DefaultUser with username "user", password "password", and a single GrantedAuthority named "ROLE_USER"
 @DataJpaTest(includeFilters = @ComponentScan.Filter(classes = {Service.class}))
@@ -49,7 +48,7 @@ public class ThreadQueryServiceTest {
     private DtoFactory dtoFactory;
     private EntityFactory entityFactory;
 
-    @Before
+    @BeforeEach
     public void setup() {
         this.activeUserResolver = Mockito.mock(ActiveUserResolver.class);
         this.dtoFactory = new DtoFactory();
@@ -68,7 +67,7 @@ public class ThreadQueryServiceTest {
 
         ReadThread actual = threadQueryService.readThread(1L);
 
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -82,7 +81,7 @@ public class ThreadQueryServiceTest {
 
         Page<ReadThread> actual = threadQueryService.readThreadsByUser(1L, TestUtil.pageable());
 
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -96,7 +95,7 @@ public class ThreadQueryServiceTest {
 
         Page<ReadThreadExtended> actual = threadQueryService.readThreadsByTopic(1L, TestUtil.pageable());
 
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -113,7 +112,7 @@ public class ThreadQueryServiceTest {
 
         Page<ReadThreadExtended> actual = threadQueryService.readRecentThreads(TestUtil.pageable());
 
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Sql(scripts = "classpath:thread_query_service/test_read_most_liked_threads.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -127,7 +126,7 @@ public class ThreadQueryServiceTest {
         Page<ReadThread> actual = threadQueryService.readMostLikedThreads(TestUtil.pageable());
 
 
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
 
     }
 }
