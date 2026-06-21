@@ -1,13 +1,13 @@
-package com.eg.yafi.dto.in;
+package com.eg.yafi.req;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-public class CreateThread {
+public class UpdateThreadReq {
+    @NotNull(message = "id can not be null")
+    @Positive(message = "id must be positive")
+    public Long id;
     @NotBlank(message = "content can not be blank")
     public String content;
-    @NotNull(message = "topicId can not be null")
-    @Positive(message = "topicId must be positive")
-    public Long topicId;
 }

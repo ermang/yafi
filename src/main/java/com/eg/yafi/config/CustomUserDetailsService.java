@@ -1,14 +1,12 @@
 package com.eg.yafi.config;
 
-import com.eg.yafi.projection.ReadUser;
+import com.eg.yafi.entity.AppUser;
 import com.eg.yafi.repo.AppUserRepo;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -20,17 +18,15 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        ReadUser readUser = appUserRepo.findOneByUsernameRO(s);
-        if (readUser == null)
-            throw new UsernameNotFoundException(s);
+    public UserDetails loadUserByUsername(String username) {
+        AppUser appUser = appUserRepo.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        CustomPrincipal customPrincipal = new CustomPrincipal(readUser.username, readUser.password, readUser.enabled,
-                true, true, true,
-                Collections.singletonList(new SimpleGrantedAuthority(readUser.role)));
+        System.out.println("DB PASSWORD = [" + appUser.getPassword() + "]");
+        System.out.println("LENGTH = " + appUser.getPassword().length());
 
-        customPrincipal.setUser(readUser);
 
-        return customPrincipal;
+
+        return new CustomUserDetails(appUser);
     }
 }

@@ -1,6 +1,6 @@
 package com.eg.yafi.service;
 
-import com.eg.yafi.dto.in.CreateTopic;
+import com.eg.yafi.req.CreateTopicReq;
 import com.eg.yafi.entity.Topic;
 import com.eg.yafi.repo.TopicRepo;
 import com.eg.yafi.util.Dto2Entity;
@@ -18,8 +18,8 @@ public class TopicCommandService {
         this.dto2Entity = dto2Entity;
     }
 
-    public void createTopic(CreateTopic createTopic) {
-        Topic t = dto2Entity.createTopic2Topic(createTopic);
+    public void createTopic(CreateTopicReq createTopicReq) {
+        Topic t = dto2Entity.createTopic2Topic(createTopicReq);
 
         topicRepo.save(t);
     }

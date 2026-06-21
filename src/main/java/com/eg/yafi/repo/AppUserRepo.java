@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface AppUserRepo extends JpaRepository<AppUser, Long> {
 
-    AppUser findOneByUsername(String username);
+    Optional<AppUser> findByUsername(String username);
 //    @Query(value = "SELECT new com.eg.yafi.projection.ReadThread(t.id AS id, t.topic.id AS topicId, t.content AS content, t.appUser.username AS username)" +
 //            "    FROM Thread t" +
 //            "    WHERE t.id = :threadId")

@@ -1,6 +1,6 @@
 package com.eg.yafi.controller;
 
-import com.eg.yafi.dto.in.CreateTopic;
+import com.eg.yafi.req.CreateTopicReq;
 import com.eg.yafi.projection.ReadPopularTopics;
 import com.eg.yafi.projection.ReadTopic;
 import com.eg.yafi.service.TopicCommandService;
@@ -23,9 +23,9 @@ public class TopicController {
     }
 
     @PostMapping()
-    public void createTopic(@RequestBody @Valid CreateTopic createTopic){
+    public void createTopic(@RequestBody @Valid CreateTopicReq createTopicReq){
 
-        topicCommandService.createTopic(createTopic);
+        topicCommandService.createTopic(createTopicReq);
     }
 
     @GetMapping("/{topicId}")

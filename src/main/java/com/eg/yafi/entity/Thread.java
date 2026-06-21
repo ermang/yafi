@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-public class Thread extends BaseEntity{
+public class Thread extends BaseEntity {
 
     @NotBlank
     @Column(nullable = false)

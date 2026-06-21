@@ -1,7 +1,7 @@
 package com.eg.yafi.controller;
 
-import com.eg.yafi.dto.in.CreateThread;
-import com.eg.yafi.dto.in.UpdateThread;
+import com.eg.yafi.req.CreateThreadReq;
+import com.eg.yafi.req.UpdateThreadReq;
 import com.eg.yafi.projection.ReadThread;
 import com.eg.yafi.projection.ReadThreadExtended;
 import com.eg.yafi.service.ThreadCommandService;
@@ -24,8 +24,8 @@ public class ThreadController {
     }
 
     @PostMapping()
-    public void createThread(@RequestBody @Valid CreateThread createThread){
-        threadCommandService.createThread(createThread);
+    public void createThread(@RequestBody @Valid CreateThreadReq createThreadReq){
+        threadCommandService.createThread(createThreadReq);
     }
 
     @PostMapping("/like/{threadId}")
@@ -71,8 +71,8 @@ public class ThreadController {
     }
 
     @PutMapping()
-    public void updateThread(@RequestBody @Valid UpdateThread updateThread){
-        threadCommandService.updateThread(updateThread);
+    public void updateThread(@RequestBody @Valid UpdateThreadReq updateThreadReq){
+        threadCommandService.updateThread(updateThreadReq);
     }
 
     @DeleteMapping("/{threadId}")

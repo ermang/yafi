@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-public class AppUser extends BaseEntity{
+public class AppUser extends BaseEntity {
 
     @NotBlank
     @Column(nullable = false, unique = true)

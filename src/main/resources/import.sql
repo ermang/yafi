@@ -4,6 +4,7 @@ SET AUTOCOMMIT=0;
 
 INSERT INTO app_user (username, password, role, enabled) VALUES ('user1', '$2a$10$o.4VZ6Ixb7PZeHuQX5.5Ve86jaySj8E1kkQIC/r0bCdT5bns5xScS', 'ROLE_USER', TRUE);
 INSERT INTO app_user (username, password, role, enabled) VALUES ('user2', '$2a$10$o.4VZ6Ixb7PZeHuQX5.5Ve86jaySj8E1kkQIC/r0bCdT5bns5xScS', 'ROLE_USER', TRUE);
+INSERT INTO app_user (username, password, role, enabled) VALUES ('testuser', '$2a$10$6OQn5JNtFW8GedCfKxY7O.ETXSysUU2vxAeBzX5fG1So1818A3JJm','USER', true);
 
 INSERT INTO topic (name, app_user_id) VALUES ('topic1', 1);
 INSERT INTO topic (name, app_user_id) VALUES ('topic2', 1);

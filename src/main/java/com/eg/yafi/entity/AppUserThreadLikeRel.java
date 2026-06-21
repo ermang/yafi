@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"app_user_id", "thread_id"}))
-public class AppUserThreadLikeRel extends BaseEntity{
+public class AppUserThreadLikeRel extends BaseEntity {
     @NotNull
     @ManyToOne
     private AppUser appUser;

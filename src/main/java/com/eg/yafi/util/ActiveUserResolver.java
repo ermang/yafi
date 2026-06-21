@@ -1,6 +1,6 @@
 package com.eg.yafi.util;
 
-import com.eg.yafi.config.CustomPrincipal;
+import com.eg.yafi.config.CustomUserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -8,18 +8,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class ActiveUserResolver {
 
-    public CustomPrincipal getActiveUser() {
+    public CustomUserDetails getActiveUser() {
         UserDetails userDetails =  (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         //if (userDetails instanceof C)
         //CustomPrincipal customPrincipal =  (CustomPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
        // return customPrincipal;
 
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof CustomPrincipal)
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof CustomUserDetails)
             System.out.println("*****CUSTOMPRINCIPAL*****");
         else
             System.out.println("*****NO_CUSTOM*****");
 
-        return (CustomPrincipal)userDetails;
+        return (CustomUserDetails)userDetails;
+    }
+
+    public Long getActiveUserId() {
+        CustomUserDetails customUserDetails =
+                (CustomUserDetails) SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getPrincipal();
+
+        Long userId = customUserDetails.getId();
+
+        return userId;
     }
 }

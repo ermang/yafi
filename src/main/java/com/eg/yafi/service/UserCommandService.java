@@ -1,6 +1,6 @@
 package com.eg.yafi.service;
 
-import com.eg.yafi.dto.in.CreateUser;
+import com.eg.yafi.req.CreateUserReq;
 import com.eg.yafi.entity.AppUser;
 import com.eg.yafi.repo.AppUserRepo;
 import com.eg.yafi.util.Dto2Entity;
@@ -18,8 +18,8 @@ public class UserCommandService {
         this.dto2Entity = dto2Entity;
     }
 
-    public void createUser(CreateUser createUser) {
-        AppUser appUser = dto2Entity.createUser2AppUser(createUser);
+    public void createUser(CreateUserReq createUserReq) {
+        AppUser appUser = dto2Entity.createUser2AppUser(createUserReq);
 
         appUserRepo.save(appUser);
     }

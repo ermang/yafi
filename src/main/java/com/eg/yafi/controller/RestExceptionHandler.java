@@ -1,6 +1,6 @@
 package com.eg.yafi.controller;
 
-import com.eg.yafi.dto.out.ErrorResponse;
+import com.eg.yafi.resp.ErrorResp;
 import com.eg.yafi.util.Constant;
 import com.eg.yafi.util.UnAuthorizedException;
 import org.slf4j.Logger;
@@ -24,53 +24,53 @@ public class RestExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
-    public ErrorResponse defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+    public ErrorResp defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
         logger.error(e.getMessage(), e);
-        return new ErrorResponse(Constant.OOPS_SOMETHING_UNEXPECTED_HAPPENED, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ErrorResp(Constant.OOPS_SOMETHING_UNEXPECTED_HAPPENED, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = { RuntimeException.class })
-    protected ErrorResponse handleRuntimeException(RuntimeException ex, WebRequest request) {
+    protected ErrorResp handleRuntimeException(RuntimeException ex, WebRequest request) {
         logger.error(ex.getMessage(), ex);
-        return new ErrorResponse(Constant.OOPS_SOMETHING_UNEXPECTED_HAPPENED, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ErrorResp(Constant.OOPS_SOMETHING_UNEXPECTED_HAPPENED, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(value = { NoSuchElementException.class })
-    protected ErrorResponse handleNoSuchElementException(NoSuchElementException ex, WebRequest request) {
+    protected ErrorResp handleNoSuchElementException(NoSuchElementException ex, WebRequest request) {
 
-        return new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
+        return new ErrorResp(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = { IllegalArgumentException.class })
-    protected ErrorResponse handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
+    protected ErrorResp handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
 
-        return new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ErrorResp(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(value = { UnAuthorizedException.class })
-    protected ErrorResponse handleUnAuthorizedException(UnAuthorizedException ex, WebRequest request) {
+    protected ErrorResp handleUnAuthorizedException(UnAuthorizedException ex, WebRequest request) {
 
-        return new ErrorResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+        return new ErrorResp(ex.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = { MethodArgumentNotValidException.class })
-    protected ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request) {
+    protected ErrorResp handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request) {
 
         String validationErrors = String.join(", ",
                 ex.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()));
 
-        return new ErrorResponse(validationErrors, HttpStatus.BAD_REQUEST);
+        return new ErrorResp(validationErrors, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = { HttpMessageNotReadableException.class })
-    protected ErrorResponse handleUnAuthorizedException(HttpMessageNotReadableException ex, WebRequest request) {
+    protected ErrorResp handleUnAuthorizedException(HttpMessageNotReadableException ex, WebRequest request) {
 
-        return new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ErrorResp(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

@@ -1,8 +1,8 @@
 package com.eg.yafi.util;
 
-import com.eg.yafi.dto.in.CreateThread;
-import com.eg.yafi.dto.in.CreateTopic;
-import com.eg.yafi.dto.in.CreateUser;
+import com.eg.yafi.req.CreateThreadReq;
+import com.eg.yafi.req.CreateTopicReq;
+import com.eg.yafi.req.CreateUserReq;
 import com.eg.yafi.entity.AppUser;
 import com.eg.yafi.entity.Thread;
 import com.eg.yafi.entity.Topic;
@@ -24,31 +24,31 @@ public class Dto2Entity {
         this.activeUserResolver = activeUserResolver;
     }
 
-    public Topic createTopic2Topic(CreateTopic createTopic) {
+    public Topic createTopic2Topic(CreateTopicReq createTopicReq) {
         Topic t = new Topic();
-        t.setName(createTopic.name);
-        Long userId = activeUserResolver.getActiveUser().getUserId();
+        t.setName(createTopicReq.name);
+        Long userId = activeUserResolver.getActiveUser().getId();
         t.setAppUser(appUserRepo.getOne(userId));
 
         return t;
     }
 
-    public AppUser createUser2AppUser(CreateUser createUser) {
+    public AppUser createUser2AppUser(CreateUserReq createUserReq) {
         AppUser u = new AppUser();
-        u.setUsername(createUser.username);
-        u.setPassword(createUser.password);
+        u.setUsername(createUserReq.username);
+        u.setPassword(createUserReq.password);
         u.setRole(Constant.ROLE_USER);
         u.setEnabled(true);
 
         return u;
     }
 
-    public Thread createThread2Thread(CreateThread createThread) {
+    public Thread createThread2Thread(CreateThreadReq createThreadReq) {
         Thread t  = new Thread();
-        t.setContent(createThread.content);
-        t.setTopic(topicRepo.getOne(createThread.topicId));
+        t.setContent(createThreadReq.content);
+        t.setTopic(topicRepo.getOne(createThreadReq.topicId));
         t.setCreatedOn(LocalDateTime.now());
-        Long userId = activeUserResolver.getActiveUser().getUserId();
+        Long userId = null;//activeUserResolver.getActiveUser().getUserId();
         t.setAppUser(appUserRepo.getOne(userId));
 
         return t;

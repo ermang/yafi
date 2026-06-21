@@ -8,14 +8,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Topic extends BaseEntity{
+public class Topic extends BaseEntity {
 
     @NotNull
     @ManyToOne
     private AppUser appUser;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     public AppUser getAppUser() {

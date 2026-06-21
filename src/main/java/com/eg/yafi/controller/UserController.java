@@ -1,6 +1,6 @@
 package com.eg.yafi.controller;
 
-import com.eg.yafi.dto.in.CreateUser;
+import com.eg.yafi.req.CreateUserReq;
 import com.eg.yafi.service.UserCommandService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping()
-    public void createUser(@RequestBody @Valid CreateUser createUser){
-        userCommandService.createUser(createUser);
+    public void createUser(@RequestBody @Valid CreateUserReq createUserReq){
+        userCommandService.createUser(createUserReq);
     }
 }
