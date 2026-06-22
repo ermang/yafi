@@ -34,4 +34,6 @@ public interface TopicRepo extends JpaRepository<Topic, Long> {
                    "    INNER JOIN AppUser a ON t.name LIKE %:topicName% AND t.appUser.id = a.id" +
                    "    ORDER BY t.name ASC" )
     Page<ReadTopic> findTopicByNameRO(@Param("topicName")String topicName, Pageable pageable);
+
+    boolean existsByName(String name);
 }

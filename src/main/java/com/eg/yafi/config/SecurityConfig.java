@@ -2,6 +2,7 @@ package com.eg.yafi.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,7 +38,8 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/auth/login").permitAll()  // Allow unauthenticated access to /authenticate
+                                .requestMatchers(HttpMethod.POST, "/user/login").permitAll()  // Allow unauthenticated access to /authenticate
+                                .requestMatchers(HttpMethod.POST, "/user").permitAll()
                                 .anyRequest().authenticated()  // All other requests need to be authenticated
                 );
 

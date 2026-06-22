@@ -6,6 +6,10 @@ import com.eg.yafi.projection.ReadThread;
 import com.eg.yafi.projection.ReadThreadExtended;
 import com.eg.yafi.service.ThreadCommandService;
 import com.eg.yafi.service.ThreadQueryService;
+import com.eg.yafi.servicereq.CreateThreadServiceReq;
+import com.eg.yafi.servicereq.CreateTopicServiceReq;
+import com.eg.yafi.servicereq.LikeThreadServiceReq;
+import com.eg.yafi.util.Req2ServiceReq;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -15,22 +19,27 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/thread")
 public class ThreadController {
+
+    private final Req2ServiceReq req2ServiceReq;
     private final ThreadQueryService threadQueryService;
     private final ThreadCommandService threadCommandService;
 
-    public ThreadController(ThreadQueryService threadQueryService, ThreadCommandService threadCommandService) {
+    public ThreadController(Req2ServiceReq req2ServiceReq, ThreadQueryService threadQueryService, ThreadCommandService threadCommandService) {
+        this.req2ServiceReq = req2ServiceReq;
         this.threadQueryService = threadQueryService;
         this.threadCommandService = threadCommandService;
     }
 
     @PostMapping()
     public void createThread(@RequestBody @Valid CreateThreadReq createThreadReq){
-        threadCommandService.createThread(createThreadReq);
+        CreateThreadServiceReq serviceReq = req2ServiceReq.createThreadReq2CreateThreadServiceReq(createThreadReq);
+        threadCommandService.createThread(serviceReq);
     }
 
     @PostMapping("/like/{threadId}")
     public void likeThread(@PathVariable long threadId){
-        threadCommandService.likeThread(threadId);
+        LikeThreadServiceReq serviceReq = req2ServiceReq.likeTread2LikeThreadServiceReq(threadId);
+        threadCommandService.likeThread(serviceReq);
     }
 
     @GetMapping("/{threadId}")

@@ -5,6 +5,8 @@ import com.eg.yafi.projection.ReadPopularTopics;
 import com.eg.yafi.projection.ReadTopic;
 import com.eg.yafi.service.TopicCommandService;
 import com.eg.yafi.service.TopicQueryService;
+import com.eg.yafi.servicereq.CreateTopicServiceReq;
+import com.eg.yafi.util.Req2ServiceReq;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +16,12 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/topic")
 public class TopicController {
+    private final Req2ServiceReq req2ServiceReq;
     private final TopicQueryService topicQueryService;
     private final TopicCommandService topicCommandService;
 
-    public TopicController(TopicQueryService topicQueryService, TopicCommandService topicCommandService) {
+    public TopicController(Req2ServiceReq req2ServiceReq, TopicQueryService topicQueryService, TopicCommandService topicCommandService) {
+        this.req2ServiceReq = req2ServiceReq;
         this.topicQueryService = topicQueryService;
         this.topicCommandService = topicCommandService;
     }
@@ -25,15 +29,8 @@ public class TopicController {
     @PostMapping()
     public void createTopic(@RequestBody @Valid CreateTopicReq createTopicReq){
 
-        topicCommandService.createTopic(createTopicReq);
-    }
-
-    @GetMapping("/{topicId}")
-    public ReadTopic readTopic(@PathVariable long topicId){
-
-        ReadTopic rt = topicQueryService.readTopic(topicId);
-
-        return rt;
+        CreateTopicServiceReq serviceReq = req2ServiceReq.createTopicReq2CreateTopicServiceReq(createTopicReq);
+        topicCommandService.createTopic(serviceReq);
     }
 
     @GetMapping()
@@ -44,11 +41,7 @@ public class TopicController {
         return rt;
     }
 
-    @GetMapping("/popular")
-    public ReadPopularTopics readPopularTopics() {
 
-        ReadPopularTopics rt = topicQueryService.readPopularTopics();
 
-        return rt;
-    }
+
 }
