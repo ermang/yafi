@@ -1,20 +1,18 @@
 package com.eg.yafi.controller;
 
-import com.eg.yafi.req.CreateThreadReq;
-import com.eg.yafi.req.UpdateThreadReq;
 import com.eg.yafi.projection.ReadThread;
 import com.eg.yafi.projection.ReadThreadExtended;
+import com.eg.yafi.req.CreateThreadReq;
+import com.eg.yafi.req.UpdateThreadReq;
 import com.eg.yafi.service.ThreadCommandService;
 import com.eg.yafi.service.ThreadQueryService;
 import com.eg.yafi.servicereq.CreateThreadServiceReq;
-import com.eg.yafi.servicereq.CreateTopicServiceReq;
 import com.eg.yafi.servicereq.LikeThreadServiceReq;
 import com.eg.yafi.util.Req2ServiceReq;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/thread")
@@ -88,6 +86,5 @@ public class ThreadController {
     public void deleteThread(@PathVariable long threadId){
         threadCommandService.deleteThread(threadId);
     }
-
 
 }

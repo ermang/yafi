@@ -1,9 +1,7 @@
 package com.eg.yafi.service;
 
-import com.eg.yafi.entity.AppUser;
 import com.eg.yafi.entity.AppUserThreadLikeRel;
 import com.eg.yafi.entity.Thread;
-import com.eg.yafi.entity.Topic;
 import com.eg.yafi.repo.AppUserRepo;
 import com.eg.yafi.repo.AppUserThreadLikeRelRepo;
 import com.eg.yafi.repo.ThreadRepo;
@@ -11,12 +9,12 @@ import com.eg.yafi.repo.TopicRepo;
 import com.eg.yafi.req.UpdateThreadReq;
 import com.eg.yafi.servicereq.CreateThreadServiceReq;
 import com.eg.yafi.servicereq.LikeThreadServiceReq;
+import com.eg.yafi.util.ActiveUserResolver;
 import com.eg.yafi.util.Constant;
 import com.eg.yafi.util.ServiceReq2Entity;
 import com.eg.yafi.util.UnAuthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,15 +32,16 @@ public class ThreadCommandService {
     private final AppUserRepo appUserRepo;
     private final ThreadRepo threadRepo;
     private final AppUserThreadLikeRelRepo appUserThreadLikeRelRepo;
-    //private final ActiveUserResolver activeUserResolver;
+    private final ActiveUserResolver activeUserResolver;
 
-
-    public ThreadCommandService(AppUserRepo appUserRepo, ThreadRepo threadRepo, AppUserThreadLikeRelRepo appUserThreadLikeRelRepo, TopicRepo topicRepo, ServiceReq2Entity serviceReq2Entity) {
+    public ThreadCommandService(TopicRepo topicRepo, ServiceReq2Entity serviceReq2Entity, AppUserRepo appUserRepo,
+                                ThreadRepo threadRepo, AppUserThreadLikeRelRepo appUserThreadLikeRelRepo, ActiveUserResolver activeUserResolver) {
+        this.topicRepo = topicRepo;
+        this.serviceReq2Entity = serviceReq2Entity;
         this.appUserRepo = appUserRepo;
         this.threadRepo = threadRepo;
         this.appUserThreadLikeRelRepo = appUserThreadLikeRelRepo;
-        this.topicRepo = topicRepo;
-        this.serviceReq2Entity = serviceReq2Entity;
+        this.activeUserResolver = activeUserResolver;
     }
 
     public void createThread(CreateThreadServiceReq createThreadServiceReq) {
@@ -52,10 +51,7 @@ public class ThreadCommandService {
     }
 
     public void likeThread(LikeThreadServiceReq likeThreadServiceReq) {
-        Thread t = threadRepo.findById(likeThreadServiceReq.threadId).orElseThrow(() -> {
-            logger.error("Thread with id {} does not exist", likeThreadServiceReq);
-            return new NoSuchElementException("Thread does not exist");
-        });
+        Thread t = threadRepo.findById(likeThreadServiceReq.threadId).orElseThrow(() -> new NoSuchElementException("Thread does not exist"));
 
         t.setLikeCount(t.getLikeCount() + 1);
 
@@ -88,15 +84,11 @@ public class ThreadCommandService {
     }
 
     public void deleteThread(long threadId) {
-        Long userId = null;//activeUserResolver.getActiveUser().getUserId();
+        Long userId = activeUserResolver.getActiveUser().getUserId();
 
-        Thread t = threadRepo.findById(threadId).orElseThrow(() -> {
-            logger.error("Thread with id {} does not exist", threadId);
-            return new NoSuchElementException("Thread does not exist");
-        });
+        Thread t = threadRepo.findById(threadId).orElseThrow(() -> new NoSuchElementException("Thread does not exist"));
 
         if (!t.getAppUser().getId().equals(userId)) {
-            logger.error("AppUser with id {} does not own thread with id {}", userId, t.getId());
             throw new UnAuthorizedException(Constant.USER_IS_NOT_AUTHORIZED_FOR_THIS_OPERATION);
         }
         else {

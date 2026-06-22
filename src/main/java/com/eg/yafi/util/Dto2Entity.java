@@ -27,7 +27,7 @@ public class Dto2Entity {
     public Topic createTopic2Topic(CreateTopicReq createTopicReq) {
         Topic t = new Topic();
         t.setName(createTopicReq.name);
-        Long userId = activeUserResolver.getActiveUser().getId();
+        Long userId = activeUserResolver.getActiveUser().getUserId();
         t.setAppUser(appUserRepo.getOne(userId));
 
         return t;

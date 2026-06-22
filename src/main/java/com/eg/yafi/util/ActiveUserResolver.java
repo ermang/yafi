@@ -23,14 +23,9 @@ public class ActiveUserResolver {
         return (CustomUserDetails)userDetails;
     }
 
-    public Long getActiveUserId() {
-        CustomUserDetails customUserDetails =
-                (CustomUserDetails) SecurityContextHolder
-                        .getContext()
-                        .getAuthentication()
-                        .getPrincipal();
+    public Long getUserId() {
 
-        Long userId = customUserDetails.getId();
+        Long userId = getActiveUser().getUserId();
 
         return userId;
     }

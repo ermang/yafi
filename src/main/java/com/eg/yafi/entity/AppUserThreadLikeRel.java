@@ -4,17 +4,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"app_user_id", "thread_id"}))
 public class AppUserThreadLikeRel extends BaseEntity {
-    @NotNull
-    @ManyToOne
+
+    @ManyToOne(optional = false)
     private AppUser appUser;
 
-    @NotNull
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Thread thread;
 
     public AppUser getAppUser() {

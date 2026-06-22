@@ -7,7 +7,6 @@ import com.eg.yafi.servicereq.CreateThreadServiceReq;
 import com.eg.yafi.servicereq.CreateTopicServiceReq;
 import com.eg.yafi.servicereq.CreateUserServiceReq;
 import com.eg.yafi.servicereq.LikeThreadServiceReq;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,7 +21,7 @@ public class Req2ServiceReq {
     public CreateTopicServiceReq createTopicReq2CreateTopicServiceReq(CreateTopicReq createTopicReq) {
         CreateTopicServiceReq serviceReq = new CreateTopicServiceReq();
         serviceReq.name = createTopicReq.name;
-        serviceReq.userId = activeUserResolver.getActiveUser().getId();
+        serviceReq.userId = activeUserResolver.getActiveUser().getUserId();
 
         return serviceReq;
     }
@@ -31,7 +30,7 @@ public class Req2ServiceReq {
         CreateThreadServiceReq serviceReq = new CreateThreadServiceReq();
         serviceReq.content = createThreadReq.content;
         serviceReq.topicId = createThreadReq.topicId;
-        serviceReq.userId = activeUserResolver.getActiveUser().getId();
+        serviceReq.userId = activeUserResolver.getActiveUser().getUserId();
 
         return serviceReq;
     }
@@ -47,7 +46,7 @@ public class Req2ServiceReq {
     public LikeThreadServiceReq likeTread2LikeThreadServiceReq(long threadId) {
         LikeThreadServiceReq serviceReq = new LikeThreadServiceReq();
         serviceReq.threadId = threadId;
-        serviceReq.userId = activeUserResolver.getActiveUser().getId();
+        serviceReq.userId = activeUserResolver.getActiveUser().getUserId();
 
         return serviceReq;
     }

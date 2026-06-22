@@ -5,9 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public class CreateThreadReq {
-    @NotBlank(message = "content can not be blank")
+    @NotBlank(message = "request.validation.content.notBlank")
     public String content;
-    @NotNull(message = "topicId can not be null")
-    @Positive(message = "topicId must be positive")
+    @NotNull(message = "{request.validation.topicId.notNull}")
+    @Positive(message = "{request.validation.topicId.notPositive}")
     public Long topicId;
 }

@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import com.eg.yafi.entity.Thread;
 
+import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 
 @Component
@@ -48,6 +49,7 @@ public class ServiceReq2Entity {
         t.setAppUser(appUser);
         t.setTopic(topic);
         t.setLikeCount(0L);
+        t.setCreatedOn(LocalDateTime.now());
 
         return t;
     }
