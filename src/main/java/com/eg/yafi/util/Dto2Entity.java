@@ -38,7 +38,7 @@ public class Dto2Entity {
         u.setUsername(createUserReq.username);
         u.setPassword(createUserReq.password);
         u.setRole(Constant.ROLE_USER);
-        u.setEnabled(true);
+
 
         return u;
     }

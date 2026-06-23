@@ -14,12 +14,12 @@ public class Thread extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
-    @NotNull
-    @ManyToOne
+
+    @ManyToOne(optional = false)
     private AppUser appUser;
 
-    @NotNull
-    @ManyToOne
+
+    @ManyToOne(optional = false)
     private Topic topic;
 
     @Column(nullable = false)

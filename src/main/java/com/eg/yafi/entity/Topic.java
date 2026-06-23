@@ -10,8 +10,7 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 public class Topic extends BaseEntity {
 
-    @NotNull
-    @ManyToOne
+    @ManyToOne(optional = false)
     private AppUser appUser;
 
     @NotBlank

@@ -26,35 +26,35 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ErrorResp defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
         logger.error(e.getMessage(), e);
-        return new ErrorResp(Constant.OOPS_SOMETHING_UNEXPECTED_HAPPENED, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ErrorResp(Constant.OOPS_SOMETHING_UNEXPECTED_HAPPENED);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = { RuntimeException.class })
     protected ErrorResp handleRuntimeException(RuntimeException ex, WebRequest request) {
         logger.error(ex.getMessage(), ex);
-        return new ErrorResp(Constant.OOPS_SOMETHING_UNEXPECTED_HAPPENED, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ErrorResp(Constant.OOPS_SOMETHING_UNEXPECTED_HAPPENED);
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(value = { NoSuchElementException.class })
     protected ErrorResp handleNoSuchElementException(NoSuchElementException ex, WebRequest request) {
 
-        return new ErrorResp(ex.getMessage(), HttpStatus.NOT_FOUND);
+        return new ErrorResp(ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = { IllegalArgumentException.class })
     protected ErrorResp handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
 
-        return new ErrorResp(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ErrorResp(ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(value = { UnAuthorizedException.class })
     protected ErrorResp handleUnAuthorizedException(UnAuthorizedException ex, WebRequest request) {
 
-        return new ErrorResp(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+        return new ErrorResp(ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -64,13 +64,13 @@ public class RestExceptionHandler {
         String validationErrors = String.join(", ",
                 ex.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()));
 
-        return new ErrorResp(validationErrors, HttpStatus.BAD_REQUEST);
+        return new ErrorResp(validationErrors);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = { HttpMessageNotReadableException.class })
     protected ErrorResp handleUnAuthorizedException(HttpMessageNotReadableException ex, WebRequest request) {
 
-        return new ErrorResp(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ErrorResp(ex.getMessage());
     }
 }

@@ -28,7 +28,7 @@ public class UserCommandService {
         appUser.setUsername(createUserServiceReq.username);
         appUser.setPassword(passwordEncoder.encode(createUserServiceReq.password));
         appUser.setRole(Constant.ROLE_USER);
-        appUser.setEnabled(true);
+
 
         appUserRepo.save(appUser);
     }
