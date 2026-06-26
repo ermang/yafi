@@ -3,8 +3,10 @@ package com.eg.yafi.controller;
 import com.eg.yafi.resp.ErrorResp;
 import com.eg.yafi.util.Constant;
 import com.eg.yafi.util.UnAuthorizedException;
+import jakarta.persistence.EntityExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.ObjectError;
@@ -15,12 +17,19 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class RestExceptionHandler {
     Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
+    private final MessageSource messageSource;
+
+    public RestExceptionHandler(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
@@ -72,5 +81,15 @@ public class RestExceptionHandler {
     protected ErrorResp handleUnAuthorizedException(HttpMessageNotReadableException ex, WebRequest request) {
 
         return new ErrorResp(ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(value = EntityExistsException.class)
+    public ErrorResp handleEntityExistsException(EntityExistsException e, Locale locale) throws Exception {
+
+       String s =  messageSource.getMessage(e.getMessage(), null, locale);
+
+        logger.error(s, e);
+        return new ErrorResp(s);
     }
 }

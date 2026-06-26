@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 
-//import com.eg.yafi.util.ActiveUserResolver;
+
 
 @Transactional
 @Service
@@ -35,7 +35,8 @@ public class ThreadCommandService {
     private final ActiveUserResolver activeUserResolver;
 
     public ThreadCommandService(TopicRepo topicRepo, ServiceReq2Entity serviceReq2Entity, AppUserRepo appUserRepo,
-                                ThreadRepo threadRepo, AppUserThreadLikeRelRepo appUserThreadLikeRelRepo, ActiveUserResolver activeUserResolver) {
+                                ThreadRepo threadRepo, AppUserThreadLikeRelRepo appUserThreadLikeRelRepo,
+                                ActiveUserResolver activeUserResolver) {
         this.topicRepo = topicRepo;
         this.serviceReq2Entity = serviceReq2Entity;
         this.appUserRepo = appUserRepo;
@@ -51,7 +52,8 @@ public class ThreadCommandService {
     }
 
     public void likeThread(LikeThreadServiceReq likeThreadServiceReq) {
-        Thread t = threadRepo.findById(likeThreadServiceReq.threadId).orElseThrow(() -> new NoSuchElementException("Thread does not exist"));
+        Thread t = threadRepo.findById(likeThreadServiceReq.threadId).orElseThrow(
+                () -> new NoSuchElementException("service.validation.thread.not.exists"));
 
         t.setLikeCount(t.getLikeCount() + 1);
 
@@ -65,7 +67,7 @@ public class ThreadCommandService {
     }
 
     public void updateThread(UpdateThreadReq updateThreadReq) {
-        Long userId = null;//activeUserResolver.getActiveUser().getUserId();
+        Long userId = activeUserResolver.getActiveUser().getUserId();
 
         Thread t = threadRepo.findById(updateThreadReq.id).orElseThrow(() -> {
             logger.error("Thread with id {} does not exist", updateThreadReq.id);
@@ -86,7 +88,8 @@ public class ThreadCommandService {
     public void deleteThread(long threadId) {
         Long userId = activeUserResolver.getActiveUser().getUserId();
 
-        Thread t = threadRepo.findById(threadId).orElseThrow(() -> new NoSuchElementException("Thread does not exist"));
+        Thread t = threadRepo.findById(threadId).orElseThrow(
+                () -> new NoSuchElementException("service.validation.thread.not.exists"));
 
         if (!t.getAppUser().getId().equals(userId)) {
             throw new UnAuthorizedException(Constant.USER_IS_NOT_AUTHORIZED_FOR_THIS_OPERATION);

@@ -38,6 +38,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
+                                .requestMatchers(HttpMethod.GET, "/thread/*").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/user/login").permitAll()  // Allow unauthenticated access to /authenticate
                                 .requestMatchers(HttpMethod.POST, "/user").permitAll()
                                 .anyRequest().authenticated()  // All other requests need to be authenticated

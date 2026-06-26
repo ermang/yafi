@@ -26,7 +26,7 @@ public class TopicCommandService {
     public void createTopic(CreateTopicServiceReq createTopicServiceReq) {
 
         if (topicRepo.existsByName(createTopicServiceReq.name))
-            throw new EntityExistsException("topic already exists!");
+            throw new EntityExistsException("service.validation.topic.already.exists");
 
         Topic t = serviceReq2Entity.createTopicServiceReq2Topic(createTopicServiceReq);
 
