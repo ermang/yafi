@@ -69,10 +69,8 @@ public class ThreadCommandService {
     public void updateThread(UpdateThreadReq updateThreadReq) {
         Long userId = activeUserResolver.getActiveUser().getUserId();
 
-        Thread t = threadRepo.findById(updateThreadReq.id).orElseThrow(() -> {
-            logger.error("Thread with id {} does not exist", updateThreadReq.id);
-            return new NoSuchElementException("Thread does not exist");
-        });
+        Thread t = threadRepo.findById(updateThreadReq.id).orElseThrow(
+                () -> new NoSuchElementException("service.validation.thread.not.exists"));
 
         if (!t.getAppUser().getId().equals(userId)) {
             logger.error("AppUser with id {} does not own thread with id {}", userId, t.getId());

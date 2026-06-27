@@ -2,7 +2,6 @@ package com.eg.yafi.config;
 
 import com.eg.yafi.entity.AppUser;
 import com.eg.yafi.repo.AppUserRepo;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -2,6 +2,8 @@ package com.eg.yafi.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @MappedSuperclass
 public class BaseEntity {
     @Id
@@ -11,6 +13,9 @@ public class BaseEntity {
     @Column(nullable = false)
     @Version
     private Integer version;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdOn;
 
     public Long getId() {
         return id;
@@ -26,5 +31,18 @@ public class BaseEntity {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        createdOn = LocalDateTime.now();
     }
 }

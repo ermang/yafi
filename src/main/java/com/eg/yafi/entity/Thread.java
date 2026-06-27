@@ -14,19 +14,14 @@ public class Thread extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
-
     @ManyToOne(optional = false)
     private AppUser appUser;
-
 
     @ManyToOne(optional = false)
     private Topic topic;
 
     @Column(nullable = false)
     private Long likeCount = 0L;
-
-    @Column(nullable = false)
-    private LocalDateTime createdOn;
 
     public String getContent() {
         return content;
@@ -60,11 +55,4 @@ public class Thread extends BaseEntity {
         this.likeCount = likeCount;
     }
 
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
-    }
 }

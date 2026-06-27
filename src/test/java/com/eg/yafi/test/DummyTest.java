@@ -15,5 +15,7 @@ public class DummyTest {
         );
 
         System.out.println(new BCryptPasswordEncoder().encode("password"));
+        System.out.println(new BCryptPasswordEncoder().encode("user"));
+        System.out.println(new BCryptPasswordEncoder().encode("admin"));
     }
 }
