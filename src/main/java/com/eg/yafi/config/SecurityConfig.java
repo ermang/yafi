@@ -41,6 +41,8 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/thread/*").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/user/login").permitAll()  // Allow unauthenticated access to /authenticate
                                 .requestMatchers(HttpMethod.POST, "/user").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/topic").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/topic/*").permitAll()
                                 .anyRequest().authenticated()  // All other requests need to be authenticated
                 );
 

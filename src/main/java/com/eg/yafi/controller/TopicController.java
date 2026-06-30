@@ -1,8 +1,9 @@
 package com.eg.yafi.controller;
 
+import com.eg.yafi.projection.ReadDailyTopic;
 import com.eg.yafi.req.CreateTopicReq;
-import com.eg.yafi.projection.ReadPopularTopics;
 import com.eg.yafi.projection.ReadTopic;
+import com.eg.yafi.resp.ReadDailyTopicListResp;
 import com.eg.yafi.service.TopicCommandService;
 import com.eg.yafi.service.TopicQueryService;
 import com.eg.yafi.servicereq.CreateTopicServiceReq;
@@ -12,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/topic")
@@ -39,6 +42,15 @@ public class TopicController {
         Page<ReadTopic> rt = topicQueryService.searchTopicByName(topicName, pageable);
 
         return rt;
+    }
+
+    @GetMapping("/daily")
+    public ReadDailyTopicListResp getDailyTopics(){
+
+        List<ReadDailyTopic> rdtl= topicQueryService.getDailyTopics();
+        ReadDailyTopicListResp resp = new ReadDailyTopicListResp(rdtl);
+
+        return resp;
     }
 
 

@@ -36,4 +36,6 @@ public interface TopicRepo extends JpaRepository<Topic, Long> {
     Page<ReadTopic> findTopicByNameRO(@Param("topicName")String topicName, Pageable pageable);
 
     boolean existsByName(String name);
+
+
 }

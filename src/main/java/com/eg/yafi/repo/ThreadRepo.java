@@ -1,5 +1,6 @@
 package com.eg.yafi.repo;
 
+import com.eg.yafi.projection.ReadDailyTopic;
 import com.eg.yafi.projection.ReadThread;
 import com.eg.yafi.projection.ReadThreadExtended;
 import com.eg.yafi.entity.Thread;
@@ -8,6 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 public interface ThreadRepo extends JpaRepository<Thread, Long> {
 
@@ -45,6 +49,20 @@ public interface ThreadRepo extends JpaRepository<Thread, Long> {
                    "    INNER JOIN AppUser appUser ON t.appUser.id = appUser.id" +
                    "    ORDER BY t.createdOn DESC")
     Page<ReadThreadExtended> findRecentThreadsRO(Pageable pageable);
+
+    @Query("""
+            SELECT new com.eg.yafi.projection.ReadDailyTopic(
+                th.topic.id, th.topic.name, COUNT(th)
+            )
+            FROM Thread th
+            JOIN th.topic t
+            WHERE th.createdOn >= :since
+            GROUP BY t.id, t.name
+            ORDER BY COUNT(th) DESC
+            """)
+    List<ReadDailyTopic> readDailyTopicList(@Param("since") LocalDateTime since, Pageable pageable);
+
+
 
 
 }
