@@ -43,6 +43,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/user").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/topic").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/topic/*").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/actuator/*").permitAll()
                                 .anyRequest().authenticated()  // All other requests need to be authenticated
                 );
 
