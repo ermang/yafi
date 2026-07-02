@@ -1,1 +1,1 @@
-INSERT INTO app_user (username, password, role, enabled) VALUES ('user1', '$2a$10$o.4VZ6Ixb7PZeHuQX5.5Ve86jaySj8E1kkQIC/r0bCdT5bns5xScS', 'ROLE_USER', TRUE);
+INSERT INTO app_user (username, password, role, created_on, version) VALUES ('user', '$2a$10$9eaMGQdwEMMxEaQCef6ELevVvXIoXpXxhUsDuYktgLcVrBV84v/iS', 'ROLE_USER', now(), 0);

@@ -3,6 +3,7 @@ package com.eg.yafi.service;
 import com.eg.yafi.projection.ReadThread;
 import com.eg.yafi.projection.ReadThreadExtended;
 import com.eg.yafi.repo.ThreadRepo;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public class ThreadQueryService {
         this.threadRepo = threadRepo;
     }
 
+    @Cacheable("thread")
     public ReadThread readThread(long threadId) {
         ReadThread rt = threadRepo.findByIdRO(threadId);
 

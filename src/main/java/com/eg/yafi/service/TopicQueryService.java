@@ -1,22 +1,21 @@
 package com.eg.yafi.service;
 
-import com.eg.yafi.projection.ReadDailyTopic;
+import com.eg.yafi.projection.ReadHotTopic;
 import com.eg.yafi.projection.ReadPopularTopics;
 import com.eg.yafi.projection.ReadTopic;
 import com.eg.yafi.repo.ThreadRepo;
 import com.eg.yafi.repo.TopicRepo;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Transactional
 @Service
 public class TopicQueryService {
     private final TopicRepo topicRepo;
@@ -52,11 +51,12 @@ public class TopicQueryService {
         return rt;
     }
 
-    public  List<ReadDailyTopic> getDailyTopics() {
+    @Cacheable("hot-topic")
+    public  List<ReadHotTopic> getHotTopics() {
         LocalDateTime since = LocalDateTime.now().minusHours(24);
         Pageable pageable = PageRequest.of(0, 10);
-        List<ReadDailyTopic> readDailyTopicList = threadRepo.readDailyTopicList(since, pageable);
+        List<ReadHotTopic> readHotTopicList = threadRepo.readHotTopicList(since, pageable);
 
-        return readDailyTopicList;
+        return readHotTopicList;
     }
 }

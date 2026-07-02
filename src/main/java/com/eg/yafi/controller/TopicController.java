@@ -1,9 +1,9 @@
 package com.eg.yafi.controller;
 
-import com.eg.yafi.projection.ReadDailyTopic;
+import com.eg.yafi.projection.ReadHotTopic;
 import com.eg.yafi.req.CreateTopicReq;
 import com.eg.yafi.projection.ReadTopic;
-import com.eg.yafi.resp.ReadDailyTopicListResp;
+import com.eg.yafi.resp.ReadHotTopicListResp;
 import com.eg.yafi.service.TopicCommandService;
 import com.eg.yafi.service.TopicQueryService;
 import com.eg.yafi.servicereq.CreateTopicServiceReq;
@@ -44,11 +44,11 @@ public class TopicController {
         return rt;
     }
 
-    @GetMapping("/daily")
-    public ReadDailyTopicListResp getDailyTopics(){
+    @GetMapping("/hot")
+    public ReadHotTopicListResp getHotTopics(){
 
-        List<ReadDailyTopic> rdtl= topicQueryService.getDailyTopics();
-        ReadDailyTopicListResp resp = new ReadDailyTopicListResp(rdtl);
+        List<ReadHotTopic> rdtl= topicQueryService.getHotTopics();
+        ReadHotTopicListResp resp = new ReadHotTopicListResp(rdtl);
 
         return resp;
     }

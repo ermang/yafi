@@ -1,6 +1,6 @@
 package com.eg.yafi.repo;
 
-import com.eg.yafi.projection.ReadDailyTopic;
+import com.eg.yafi.projection.ReadHotTopic;
 import com.eg.yafi.projection.ReadThread;
 import com.eg.yafi.projection.ReadThreadExtended;
 import com.eg.yafi.entity.Thread;
@@ -51,7 +51,7 @@ public interface ThreadRepo extends JpaRepository<Thread, Long> {
     Page<ReadThreadExtended> findRecentThreadsRO(Pageable pageable);
 
     @Query("""
-            SELECT new com.eg.yafi.projection.ReadDailyTopic(
+            SELECT new com.eg.yafi.projection.ReadHotTopic(
                 th.topic.id, th.topic.name, COUNT(th)
             )
             FROM Thread th
@@ -60,7 +60,7 @@ public interface ThreadRepo extends JpaRepository<Thread, Long> {
             GROUP BY t.id, t.name
             ORDER BY COUNT(th) DESC
             """)
-    List<ReadDailyTopic> readDailyTopicList(@Param("since") LocalDateTime since, Pageable pageable);
+    List<ReadHotTopic> readHotTopicList(@Param("since") LocalDateTime since, Pageable pageable);
 
 
 
