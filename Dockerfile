@@ -1,12 +1,9 @@
-#docker/dockerfile:1
-
-FROM maven:3.8.6-openjdk-11
+FROM eclipse-temurin:17-jre
 
 WORKDIR /app
 
-COPY pom.xml /app/
-COPY src /app/src/
+COPY target/yafi-1.0-SNAPSHOT.jar yafi-1.0-SNAPSHOT.jar
 
-RUN mvn package
+EXPOSE 8080
 
-CMD java -jar target/yafi-1.0-SNAPSHOT.jar
+CMD ["java", "-jar", "yafi-1.0-SNAPSHOT.jar"]

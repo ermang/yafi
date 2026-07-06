@@ -4,22 +4,37 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-       "db":
-          condition: service_healthy
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
       
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/yafi?useSSL=false
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
-  db:
-    image: mariadb:10.8
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/yafi
+      - SPRING_DATA_REDIS_HOST=redis
+
+  postgres:
+    image: postgres:18
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      - MARIADB_ROOT_PASSWORD=root
-      - MARIADB_DATABASE=yafi
+      POSTGRES_DB: yafi
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
     healthcheck:
-      test: mariadb -u root -proot -h 127.0.0.1 --execute "SHOW DATABASES;"; exit_code=$$?; echo $$exit_code;  exit $$exit_code
-      interval: 30s
-      timeout: 10s
-      start_period: 30s
-      retries: 3
+      test: [ "CMD-SHELL", "pg_isready -U root -d yafi" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:8
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
