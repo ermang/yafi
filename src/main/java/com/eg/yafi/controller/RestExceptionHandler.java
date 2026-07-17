@@ -47,9 +47,14 @@ public class RestExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(value = { NoSuchElementException.class })
-    protected ErrorResp handleNoSuchElementException(NoSuchElementException ex, WebRequest request) {
+    protected ErrorResp handleNoSuchElementException(NoSuchElementException ex, Locale locale) {
 
-        return new ErrorResp(ex.getMessage());
+       // return new ErrorResp(ex.getMessage());
+
+        String s =  messageSource.getMessage(ex.getMessage(), null, locale);
+
+        logger.error(s, ex);
+        return new ErrorResp(s);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -19,7 +19,7 @@ public class CustomUserDetails implements UserDetails {
         this.userId = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.authorities = List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
+        this.authorities = List.of(new SimpleGrantedAuthority(user.getRole()));
     }
 
     public Long getUserId() {

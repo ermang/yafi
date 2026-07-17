@@ -44,6 +44,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/topic").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/topic/*").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/actuator/*").permitAll()
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()  // All other requests need to be authenticated
                 );
 

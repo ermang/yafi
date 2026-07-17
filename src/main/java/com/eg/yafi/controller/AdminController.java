@@ -1,6 +1,8 @@
 package com.eg.yafi.controller;
 
 import com.eg.yafi.service.AdminCommandService;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +13,11 @@ public class AdminController {
 
     public AdminController(AdminCommandService adminCommandService) {
         this.adminCommandService = adminCommandService;
+    }
+
+    @DeleteMapping("/{threadId}")
+    public void deleteThread(@PathVariable long threadId){
+        adminCommandService.deleteThread(threadId);
     }
 
 
