@@ -49,12 +49,10 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = { NoSuchElementException.class })
     protected ErrorResp handleNoSuchElementException(NoSuchElementException ex, Locale locale) {
 
-       // return new ErrorResp(ex.getMessage());
+        logger.error(ex.getMessage(), ex);
+        String localizedMessage =  messageSource.getMessage(ex.getMessage(), null, locale);
 
-        String s =  messageSource.getMessage(ex.getMessage(), null, locale);
-
-        logger.error(s, ex);
-        return new ErrorResp(s);
+        return new ErrorResp(localizedMessage);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -92,9 +90,9 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = EntityExistsException.class)
     public ErrorResp handleEntityExistsException(EntityExistsException e, Locale locale) throws Exception {
 
-       String s =  messageSource.getMessage(e.getMessage(), null, locale);
+        logger.error(e.getMessage(), e);
+       String localizedMessage =  messageSource.getMessage(e.getMessage(), null, locale);
 
-        logger.error(s, e);
-        return new ErrorResp(s);
+        return new ErrorResp(localizedMessage);
     }
 }

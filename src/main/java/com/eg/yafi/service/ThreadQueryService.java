@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
+
 @Service
 public class ThreadQueryService {
     private final ThreadRepo threadRepo;
