@@ -4,8 +4,6 @@ import com.eg.yafi.entity.Thread;
 import com.eg.yafi.repo.AppUserThreadLikeRelRepo;
 import com.eg.yafi.repo.ThreadRepo;
 import com.eg.yafi.util.ActiveUserResolver;
-import com.eg.yafi.util.Constant;
-import com.eg.yafi.util.UnAuthorizedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

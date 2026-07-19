@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,16 +33,9 @@ public class RestExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(value = Exception.class)
+    @ExceptionHandler(value = {Exception.class, RuntimeException.class})
     public ErrorResp defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
         logger.error(e.getMessage(), e);
-        return new ErrorResp(Constant.OOPS_SOMETHING_UNEXPECTED_HAPPENED);
-    }
-
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(value = { RuntimeException.class })
-    protected ErrorResp handleRuntimeException(RuntimeException ex, WebRequest request) {
-        logger.error(ex.getMessage(), ex);
         return new ErrorResp(Constant.OOPS_SOMETHING_UNEXPECTED_HAPPENED);
     }
 
@@ -90,8 +84,18 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = EntityExistsException.class)
     public ErrorResp handleEntityExistsException(EntityExistsException e, Locale locale) throws Exception {
 
-        logger.error(e.getMessage(), e);
+       logger.error(e.getMessage(), e);
        String localizedMessage =  messageSource.getMessage(e.getMessage(), null, locale);
+
+        return new ErrorResp(localizedMessage);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(value = BadCredentialsException.class)
+    public ErrorResp handleBadCredentialsException(BadCredentialsException e, Locale locale) throws Exception {
+
+        logger.error(e.getMessage(), e);
+        String localizedMessage = messageSource.getMessage("request.validation.bad.credentials", null, locale);
 
         return new ErrorResp(localizedMessage);
     }
