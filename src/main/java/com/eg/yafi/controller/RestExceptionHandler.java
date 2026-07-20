@@ -1,9 +1,9 @@
 package com.eg.yafi.controller;
 
 import com.eg.yafi.resp.ErrorResp;
-import com.eg.yafi.util.Constant;
 import com.eg.yafi.util.UnAuthorizedException;
 import jakarta.persistence.EntityExistsException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Locale;
 import java.util.NoSuchElementException;
@@ -34,9 +32,11 @@ public class RestExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = {Exception.class, RuntimeException.class})
-    public ErrorResp defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+    public ErrorResp defaultErrorHandler(HttpServletRequest req, Exception e, Locale locale) throws Exception {
         logger.error(e.getMessage(), e);
-        return new ErrorResp(Constant.OOPS_SOMETHING_UNEXPECTED_HAPPENED);
+
+        String localizedMessage = messageSource.getMessage("service.oops", null, locale);
+        return new ErrorResp(localizedMessage);
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)

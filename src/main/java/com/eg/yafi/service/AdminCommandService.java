@@ -3,7 +3,6 @@ package com.eg.yafi.service;
 import com.eg.yafi.entity.Thread;
 import com.eg.yafi.repo.AppUserThreadLikeRelRepo;
 import com.eg.yafi.repo.ThreadRepo;
-import com.eg.yafi.util.ActiveUserResolver;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,12 +12,10 @@ import java.util.NoSuchElementException;
 @Service
 public class AdminCommandService {
 
-    private final ActiveUserResolver activeUserResolver;
     private final ThreadRepo threadRepo;
     private final AppUserThreadLikeRelRepo appUserThreadLikeRelRepo;
 
-    public AdminCommandService(ActiveUserResolver activeUserResolver, ThreadRepo threadRepo, AppUserThreadLikeRelRepo appUserThreadLikeRelRepo) {
-        this.activeUserResolver = activeUserResolver;
+    public AdminCommandService(ThreadRepo threadRepo, AppUserThreadLikeRelRepo appUserThreadLikeRelRepo) {
         this.threadRepo = threadRepo;
         this.appUserThreadLikeRelRepo = appUserThreadLikeRelRepo;
     }
@@ -30,6 +27,5 @@ public class AdminCommandService {
 
             appUserThreadLikeRelRepo.deleteAllByThreadId(threadId);
             threadRepo.deleteById(threadId);
-
     }
 }
